@@ -12,8 +12,12 @@ init.val=NULL, fix.nugget=FALSE)
 }
 
 \arguments{
-  \item{emp.variog}{an object of the class \kbd{emp.variog}, output of the function \code{Emp.variog}.}
-  \item{variog.model}{character string giving the name of the parametric model to fit to the empirical variogram. Implemented models are \kbd{exponential}, \kbd{spherical}, \kbd{gauss}, \kbd{gencauchy}, \kbd{matern}.}
+  \item{emp.variog}{an object of the class \kbd{emp.variog}, output of the function \code{Emp.variog} or of the function 
+\code{avg.variog}.}
+  \item{variog.model}{character string giving the name of the parametric 
+model to fit to the empirical variogram. Implemented models are 
+\kbd{exponential}, \kbd{spherical}, \kbd{gauss}, \kbd{gencauchy}, and 
+\kbd{matern}.}
   \item{max.dist.fit}{number giving the maximum distance considered when fitting the variogram.}
   \item{init.val}{numeric vector giving the initial values for the parameters. The number of initial values to be entered depends on the variogram model specified. 
 
@@ -22,12 +26,12 @@ If the variog.model specified is \kbd{exponential}, \kbd{spherical} or
 effect, the variance and the range. 
 
 If the variog.model specified is \kbd{gencauchy}, the parameters required 
-are, in order, the nugget effect, the variance, 
-the range, the smoothness parameter a, and the long-range parameter b. 
+are, in order, the nugget effect, the variance, the range, the smoothness 
+parameter \kbd{a}, and the long-range parameter \kbd{b}.
 
 If the variog.model specified is \kbd{matern} the parameters required are, 
-in order, the nugget effect, the variance, the 
-range, and the smoothness parameter a. 
+in order, the nugget effect, the variance, the range, and the smoothness 
+parameter \kbd{a}.
 
 For more details on the valid range for the parameters and for the equation of the variogram models listed above, look below at the section "Details".}
   \item{fix.nugget}{logical field indicating whether the nugget should be considered fixed or not. If \kbd{TRUE} the nugget effect will be assumed to be constant, and a value for the fixed nugget effect can be also provided. If the value provided is different from the one entered in the \kbd{init.val} field, then the value of the nugget effect is taken to be the one entered in the \kbd{init.val} field. 
@@ -122,8 +126,10 @@ The function returns a list with components given by:
   \item{nugget}{Estimate of the nugget effect.}
   \item{variance}{Estimate of the variance.}
   \item{range}{Estimate of the range.}
-  \item{additional.par}{Numeric vector with the estimates of the additional parameters required by the parametric variogram model.}
-}
+  \item{additional.par}{Numeric vector with the estimates of the 
+additional parameters required by the parametric variogram model. This is 
+returned only if the parametric model fitted are \kbd{gencauchy} or 
+\kbd{matern}} }
 
 \references{Gel, Y., Raftery, A. E., Gneiting, T. (2004). Calibrated 
 probabilistic mesoscale weather field forecasting: the Geostatistical 
@@ -140,7 +146,9 @@ Stein, M. L. (1999). \emph{Interpolation of Spatial Data - Some Theory for Krigi
 
 \author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
 
-\seealso{\code{\link{Emp.variog}} for computation of the empirical variogram.}
+\seealso{\code{\link{Emp.variog}} for computation of the empirical 
+variogram of forecast errors, and \code{\link{avg.variog}} for computation 
+of the empirical variogram of a random variable.}
 
 \examples{
 ## Loading data
@@ -181,18 +189,14 @@ variog.model="exponential",param=c(param.variog$nugget,
 param.variog$variance,param.variog$range)))
 
 
-\dontshow{
-## The function is currently defined as
-function(emp.variog,variog.model="exponential",max.dist.fit=NULL,init.val=NULL,fix.nugget=FALSE){
-# INPUT CHECK
-### Here there should be the check on whether emp.variog is an object output of the function emp.variog
-
-init.var <- emp.variog$res.var
-emp.variog <- matrix(cbind(emp.variog$bin.midpoints,emp.variog$number.pairs,emp.variog$empir.variog),ncol=3)
-
-# Here we do the input check on the rest of the input
-# default
-if(missing(max.dist.fit))
+\dontshow{ ## The function is currently defined as 
+function(emp.variog,variog.model="exponential",max.dist.fit=NULL,init.val=NULL,fix.nugget=FALSE){ 
+# INPUT CHECK #
+## Here there should be the check on whether emp.variog is an object output of the function emp.variog 
+init.var <- emp.variog$mar.var 
+emp.variog.mod <- list(bin.midpoints=emp.variog$bin.midpoints,number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog) 
+# Here we do the input check on the rest of the input 
+# default if(missing(max.dist.fit))
   max.dist.fit <- NULL
 if(missing(fix.nugget))
   fix.nugget <- FALSE
@@ -233,19 +237,19 @@ if(case.var==0){
 l.max.dist.fit <- length(max.dist.fit)
 
 if(l.max.dist.fit > 1){
-  stop("Max.dist.fit should be numeric field: not a vector")
+  stop("max.dist.fit should be numeric field: not a vector")
   }
 
 if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==FALSE){
-  stop("Max.dist.fit should be a numeric field")
+  stop("max.dist.fit should be a numeric field")
   }
 
 if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
   if(max.dist.fit < 0){
-    stop("Max.dist.fit should be positive number")
+    stop("max.dist.fit should be positive number")
   }
   if(max.dist.fit > max(emp.variog[,1])){
-    stop("Max.dist.fit should be less or equal than max.dist")
+    stop("max.dist.fit should be less or equal than max.dist")
   }
   }
  
@@ -255,7 +259,7 @@ if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
 l.init.val <- length(init.val)
 
 if(l.init.val > 0 & l.init.val <3 ){
-  stop("Init.val should be equal to NULL or to a vector of at least length 3")
+  stop("init.val should be equal to NULL or to a vector of at least length 3")
   }
 
 if(l.init.val ==3 & (sum(is.numeric(init.val)==rep("TRUE",3)) < l.init.val)){
@@ -292,7 +296,7 @@ l.nug <- length(fix.nugget)
 
 if(l.nug==1){
   if(fix.nugget!=TRUE & fix.nugget!=FALSE){
-   stop("Fix.nugget should be either equal to TRUE or FALSE")
+   stop("fix.nugget should be either equal to TRUE or FALSE")
    }
   }
 
@@ -314,10 +318,10 @@ if(l.nug==2){
   }
 
 if(l.nug >2){
-  stop("Fix.nugget is either a character field or a 2x1 field")
+  stop("fix.nugget is either a character field or a 2x1 field")
   }
 
-param.est <- round(model.fit(variog.model,emp.variog,max.dist.fit,init.val,init.var,fix.nugget),3)
+param.est <- round(model.fit(variog.model,emp.variog.mod,max.dist.fit,init.val,init.var,fix.nugget),3)
 
 
 if(variog.model=="matern"){variog.model <- "whittlematern"}

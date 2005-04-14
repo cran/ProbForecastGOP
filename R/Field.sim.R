@@ -14,19 +14,19 @@ if(missing(qt.displ))
 l.obs <- length(obs)
 l.for <- length(forecast)
 if(l.obs==0){
-  stop("Obs is a vector")
+  stop("obs is a vector")
 }
 if(l.for==0){
-  stop("Forecast is a vector")
+  stop("forecast is a vector")
 }
 if(sum((c(l.obs,l.for)/l.obs)==rep(1,2))!=2){
   stop("Mismatch in dimensions in the data")
 }
 if(sum(is.numeric(obs)==rep("TRUE",l.obs))<l.obs){
-  stop("Observations should be numerical values")
+  stop("obs should be a numeric vector")
 }
 if(sum(is.numeric(forecast)==rep("TRUE",l.for))<l.for){
-  stop("Forecasts should be numerical values")
+  stop("forecasts should be numeric vector")
 }
 ## check on the latitude and forecast grid
 l.coord1grid <- length(coord1.grid)
@@ -79,13 +79,13 @@ if(l.parest > 5){
 }
 if(l.parest== 3){
   if(sum(is.numeric(param.est)==rep(TRUE,l.parest))<3){
-   stop("Param.est is a numeric vector")
+   stop("param.est is a numeric vector")
   }
   if(variog.model=="whittlematern"){
-   stop("Param.est should be of length 4")
+   stop("param.est should be of length 4")
   }
   if(variog.model=="gencauchy"){
-   stop("Param.est should be of length 5")
+   stop("param.est should be of length 5")
   }
   if(sum(param.est >= 0) < 3){
    stop("The entries of param.est should be non-negative numbers")
@@ -103,19 +103,19 @@ if(l.parest== 3){
   
 if(l.parest==4){
   if(sum(is.numeric(param.est)==rep(TRUE,l.parest))<4){
-   stop("Param.est is a numeric vector")
+   stop("param.est is a numeric vector")
   }
   if(variog.model=="gencauchy"){
-   stop("Param.est should be of length 5")
+   stop("param.est should be of length 5")
   }
   if(variog.model=="exponential"){
-   stop("Param.est should be of length 3")
+   stop("param.est should be of length 3")
   }
   if(variog.model=="gauss"){
-   stop("Param.est should be of length 3")
+   stop("param.est should be of length 3")
   }
   if(variog.model=="spherical"){
-   stop("Param.est should be of length 3")
+   stop("param.est should be of length 3")
   }
   if(sum(param.est >= 0) < 4){
    stop("The entries of param.est should be non-negative numbers")
@@ -126,19 +126,19 @@ if(l.parest==4){
 }
 if(l.parest==5){
   if(sum(is.numeric(param.est)==rep(TRUE,l.parest))<5){
-   stop("Param.est is a numeric vector")
+   stop("param.est is a numeric vector")
   }
   if(variog.model=="whittlematern"){
-   stop("Param.est should be of length 4")
+   stop("param.est should be of length 4")
   }
   if(variog.model=="exponential"){
-   stop("Param.est should be of length 3")
+   stop("param.est should be of length 3")
   }
   if(variog.model=="gauss"){
-   stop("Param.est should be of length 3")
+   stop("param.est should be of length 3")
   }
   if(variog.model=="spherical"){
-   stop("Param.est should be of length 3")
+   stop("param.est should be of length 3")
   }
   if(sum(param.est >= 0) < 5){
    stop("The entries of param.est should be non-negative numbers")
@@ -159,7 +159,7 @@ if(l.sim==0){
   n.sim <- 99}
 l.sim <- length(n.sim)
 if(length(n.sim)> 1){
-  stop("N.sim is a numeric field: not a vector")
+  stop("n.sim is a numeric field: not a vector")
 }
 if(length(n.sim)==1){
   if(is.numeric(n.sim)==FALSE){
@@ -178,21 +178,21 @@ if(l.displ==0){
   n.displ <- 4}
 l.displ <- length(n.displ)
 if(l.displ > 1){
-  stop("N.displ is a numeric field: not a vector")
+  stop("n.displ is a numeric field: not a vector")
 }
 if(l.displ==1){
  if(is.numeric(n.displ)!=TRUE){
-  stop("N.displ is a numeric field")
+  stop("n.displ is a numeric field")
  }
 
  if(ceiling(n.displ)!=n.displ){
-  stop("N.displ should be an integer number")
+  stop("n.displ should be an integer number")
  }
  if(n.displ < 0){
-  stop("N.displ should be an integer non-negative number")
+  stop("n.displ should be an integer non-negative number")
  }
  if(n.displ > n.sim){
-  stop("N.displ should be less or equal to n.sim")
+  stop("n.displ should be less or equal to n.sim")
  }
 }
 ## check on the qt.displ
@@ -202,7 +202,7 @@ if(l.qt==0){
 l.qt <- length(qt.displ)
 if(l.qt >0){
  if(sum(is.numeric(qt.displ)==rep("TRUE",l.qt))<l.qt){
-  stop("Qt.displ is a numeric vector")
+  stop("qt.displ is a numeric vector")
  }
  if(sum(ceiling(qt.displ)==rep(qt.displ,l.qt))<l.qt){
   stop("The elements of qt.displ should be integer numbers")

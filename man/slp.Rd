@@ -34,7 +34,8 @@ metereological stations.
 forecasts as provided by the Aviation (AVN) member of the University of 
 Washington MM5 ensemble.
 
-\emph{obs} a numeric vector giving the simulated Sea Level Pressures.}
+\emph{obs} a numeric vector giving the simulated Sea Level Pressures.
+}
 
 \references{
 Gel, Y., Raftery, A. E., Gneiting, T. (2004). Calibrated

@@ -26,13 +26,13 @@ if(sum((c(l.day,l.obs,l.for,l.id,l.coord1,l.coord2)/l.day)==rep(1,6))!=6){
   stop("Mismatch in dimensions in the data")
 }
 if(sum(is.numeric(obs)==rep("TRUE",l.obs))<l.obs){
-  stop("Observations should be a numeric vector")
+  stop("obs should be a numeric vector")
 }
 if(sum(ceiling(day)==day)<l.day){
-  stop("Day of observation should be an integer")
+  stop("day should be a vector containing integers")
 }
 if(sum(is.numeric(coord1)==rep("TRUE",l.coord1)) < l.coord1 | sum(is.numeric(coord2)==rep("TRUE",l.coord2)) < l.coord2){
-  stop("Coordinates of the locations should be numeric fields")
+  stop("coord1 and coord2 should be numeric vectors")
 }
 ## here we check the tolerance angles
 
@@ -42,14 +42,14 @@ if(l.tol.angle1==0){
   tol.angle1 <- 45}
 
 if(l.tol.angle1 > 1){
-  stop("Tol.angle1 should be a number")
+  stop("tol.angle1 should be a number")
 }
 
 if(l.tol.angle1==1 & is.numeric(tol.angle1)==FALSE){
-  stop("Tol.angle1 should be a number between 0 and 360")
+  stop("tol.angle1 should be a number between 0 and 360")
 }
 if(tol.angle1 <0 | tol.angle1 > 360){
-  stop("Tol.angle1 should be a number between 0 and 360")
+  stop("tol.angle1 should be a number between 0 and 360")
 }
 
 l.tol.angle2 <- length(tol.angle2)
@@ -58,27 +58,27 @@ if(l.tol.angle2==0){
   tol.angle2 <- 135}
 
 if(l.tol.angle2 > 1){
-  stop("Tol.angle2 should be a number")
+  stop("tol.angle2 should be a number")
 }
 
 if(l.tol.angle2==1 & is.numeric(tol.angle2)==FALSE){
-  stop("Tol.angle1 should be a number between 0 and 360")
+  stop("tol.angle1 should be a number between 0 and 360")
 }
 if(tol.angle2 <0 | tol.angle2 > 360){
-  stop("Tol.angle1 should be a number between 0 and 360")
+  stop("tol.angle1 should be a number between 0 and 360")
 }
 
 if(tol.angle2 <= tol.angle1){
-  stop("Tol.angle2 should be greater than Tol.angle1")
+  stop("tol.angle2 should be greater than tol.angle1")
 }
 ## here we check the cutpoints vector
 l.cuts <- length(cut.points)
 if(l.cuts==1){
-  stop("Cutpoints should be a numeric vector")
+  stop("cut.points should be a numeric vector")
 }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))<l.cuts)){
-  stop("Cutpoints should be a numeric vector")
+  stop("cut.points should be a numeric vector")
 }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
@@ -96,13 +96,13 @@ if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
 ## check on the max.dist
 l.mdist <- length(max.dist)
 if(l.mdist > 1){
-   stop("Max.dist is a numeric field, not a vector")}
+   stop("max.dist is a numeric field, not a vector")}
 if(l.mdist==1){
   if(is.numeric(max.dist)==FALSE){
-    stop("Max.dist is a numeric field")
+    stop("max.dist is a numeric field")
   }
   if(max.dist < 0){
-    stop("Max.dist should be a positive number")
+    stop("max.dist should be a positive number")
   }
 }
 ## check on the number of bins
@@ -115,7 +115,7 @@ if(l.nbins==1 & l.cuts >=2){
 }
 l.nbins <- length(nbins)
 if(l.nbins >1){
-   stop("Nbins should be an integer: not a vector")
+   stop("nbins should be an integer: not a vector")
 }
 if(l.nbins==1){
   if(floor(nbins)!=nbins){
@@ -130,10 +130,10 @@ if(l.nbins==1){
 ## check on the type ##
 l.type <- length(type)
 if(l.type==0){
-  stop("Type should be entered")
+  stop("type should be entered")
 }
 if(type!="E" & type!="N"){
-    stop("Type can only be equal to E or to N")
+    stop("type can only be equal to E or to N")
 }
 # ESTIMATION of THE EMPIRICAL VARIOGRAM
 # here we order the data in ascending date order
@@ -149,8 +149,9 @@ gop.res <- gop.mod$res
 gop.var <- var(gop.res)
 tol.angle.rad1 <- tol.angle1/57.29577951
 tol.angle.rad2 <- tol.angle2/57.29577951
+
 # if the vector with the cutpoints
-# is not specified, we determine the cutpoints by looking at the day with the median average 
+# is not specified, we determine the cutpoints by looking at the day with the median number
 # of observations, we calculate the cutpoints so that the number 
 # of bins is equal to the one specified and each bin contains approx the same number of pairs. If the vector with the 
 # if the vector of cutpoints is specified, then we just use that vector of cutpoints.
@@ -193,9 +194,95 @@ if(length(cut.points)==0){
       cut.points[i] <- ord.dist.day[i*l.bins]
   }
 }
+
 # this part is to calculate the empirical directional variogram
-dir.variogram <- avg.variog.dir(day,coord1,coord2,id,gop.res,cut.points,tol.angle.rad1,tol.angle.rad2,type)
-output <- list(bin.midpoints=dir.variogram[,1],
-              number.pairs=dir.variogram[,2],dir.variog=dir.variogram[,3])
-return(output)
+unique.day <- unique(day)
+l.day <- length(unique.day)
+n.stations <- length(unique(id))
+n.cuts <- length(cut.points)
+W <- rep(0,(n.cuts-1))
+W.obs <- rep(0,(n.cuts-1))
+    
+for(i in 1:l.day){
+      distance.day <- NULL
+      difference.day <- NULL
+      new.dist.day <- NULL
+      s.new.dist.day <- NULL
+      o.new.dist.day <- NULL
+      new.diff.day <- NULL  
+      s.new.diff.day <- NULL
+      gop.res.day <- NULL
+      id.day <- NULL
+      coord1.day <- NULL
+      coord2.day <- NULL  
+      gop.res.day <- gop.res[day==unique.day[i]]
+      id.day <- id[day==unique.day[i]]
+      coord1.day <- coord1[day==unique.day[i]]
+      coord2.day <- coord2[day==unique.day[i]]
+      distance.day <-
+calc.dist.dir(coord1.day,coord2.day,id.day,tol.angle.rad1,tol.angle.rad2,type)
+       new.dist.day <- distance.day[lower.tri(distance.day)]
+       s.new.dist.day <- sort(new.dist.day)
+       o.new.dist.day <- order(new.dist.day)
+       difference.day  <- calc.difference(gop.res.day)
+       new.diff.day <- difference.day[lower.tri(difference.day)]
+       s.new.diff.day <- new.diff.day[o.new.dist.day]
+       W.new <- rep(0,(n.cuts-1))
+       W.obs.new <- rep(0,(n.cuts-1))
+      
+       for(s in 1:(n.cuts-1)){
+           low.bound <- cut.points[s]
+           upp.bound <- cut.points[s+1]
+           v.dist <- NULL
+           v.dist1 <- NULL
+           v.diff1 <- NULL
+           index.v.dist <- NULL
+           index.v.dist1 <- NULL 
+       
+           if(s < (n.cuts-1)){
+                v.dist <- s.new.dist.day[s.new.dist.day >= low.bound & s.new.dist.day < upp.bound]
+                index.v.dist <- seq(1:length(s.new.dist.day))[s.new.dist.day >= low.bound & s.new.dist.day < upp.bound]
+                v.dist1 <- v.dist[v.dist!=0]
+                index.v.dist1 <- index.v.dist[v.dist!=0]
+                 
+                if(length(v.dist1) >=1){
+                   v.diff1 <- s.new.diff.day[index.v.dist1]
+                   W.new[s] <- sum(v.diff1)
+                   W.obs.new[s] <- length(v.dist1)}
+                if(length(v.dist1) ==0){
+                   W.new[s] <- 0
+                   W.obs.new[s] <- 0}
+           }
+           if(s==(n.cuts-1)){
+                 v.dist <- s.new.dist.day[s.new.dist.day >= low.bound & s.new.dist.day <= upp.bound]
+                 index.v.dist <- seq(1:length(s.new.dist.day))[s.new.dist.day >= low.bound & s.new.dist.day <= upp.bound]
+                 v.dist1 <- v.dist[v.dist!=0]
+                 index.v.dist1 <- index.v.dist[v.dist!=0]
+                   
+                 if(length(v.dist1) >=1){
+                   v.diff1 <- s.new.diff.day[index.v.dist1]
+                   W.new[s] <- sum(v.diff1)
+                   W.obs.new[s] <- length(v.dist1)}
+                 if(length(v.dist1) ==0){
+                   W.new[s] <- 0
+                   W.obs.new[s] <- 0}   
+           }
+       }
+   W <- W+W.new
+   W.obs <- W.obs + W.obs.new  
+   }
+   avg.variog <- round(W/(2*W.obs),2)
+   n.h <- W.obs
+   x.vec <- NULL
+   for(i in 1:(n.cuts-1)){
+     x.vec[i] <- (cut.points[i]+cut.points[i+1])/2
+   }
+   fin.avg.variog <- c(0,avg.variog)
+   fin.x.vec <- c(0,x.vec)
+   fin.n.h <- c(n.stations,n.h)
+   B <- list(bin.midpoints=fin.x.vec,number.pairs=fin.n.h,dir.variog=fin.avg.variog)
+   return(B)
 }
+
+
+

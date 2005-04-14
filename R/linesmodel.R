@@ -16,7 +16,7 @@ if(l.dist <1){
   stop("Invalid input")
 }
 if(l.dist>=1 & (sum(is.numeric(distance)==rep("TRUE",l.dist)) < l.dist)){
-  stop("Distance should be a numeric vector")
+  stop("distance should be a numeric vector")
 }
 if(l.dist>=1 & (sum(is.numeric(distance)==rep("TRUE",l.dist))==l.dist)){
   if(sum(distance >=0) < l.dist){

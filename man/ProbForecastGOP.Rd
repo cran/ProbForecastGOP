@@ -16,23 +16,28 @@ n.sim=99, out="SIM", n.displ=4, qt.displ=c(10,50,90))
   \item{day}{numeric vector containing the day of observation.}
   \item{obs}{numeric vector containing the observed weather quantity.}
   \item{forecast}{numeric vector containing the forecasted weather quantity.}
-  \item{id}{vector with the id of the metereological stations in the dataset.}
+  \item{id}{vector with the id of the metereological stations.}
   \item{coord1}{vector containing the longitudes of the metereological stations.}
   \item{coord2}{vector containing the latitudes of the metereological 
 stations.}
   \item{cut.points}{numeric vector containing the cutpoints used for variogram binning.}
-  \item{max.dist}{a numerical value giving the upper bound on the distance considered in the variogram computation.}
+  \item{max.dist}{a numerical value giving the upper bound for the 
+distance considered in the variogram computation.}
   \item{nbins}{a numerical value giving the number of bins for variogram binning.}
   \item{variog.model}{character string giving the name of the parametric model to fit to the empirical variogram. Implemented models are \kbd{exponential}, 
-\kbd{spherical}, \kbd{gauss}, \kbd{gencauchy}, \kbd{matern}.}
+\kbd{spherical}, \kbd{gauss}, \kbd{gencauchy}, and \kbd{matern}.}
   \item{max.dist.fit}{number giving the maximum distance considered when fitting the variogram.}
   \item{init.val}{numeric vector giving the initial values for the parameters in the variogram model. The number of initial values to be entered depends on the parametric model specified. 
 
 If the variog.model specified is \kbd{exponential}, \kbd{spherical} or \kbd{gauss}, then the parameters required are, in order, the nugget effect, the variance and the range. 
 
-If the variog.model specified is \kbd{gencauchy}, the parameters required are, in order, the nugget effect, the variance, the range, the smoothness parameter a and the long-range parameter b. 
+If the variog.model specified is \kbd{gencauchy}, the parameters required 
+are, in order, the nugget effect, the variance, the range, the smoothness 
+parameter \kbd{a} and the long-range parameter \kbd{b}.
 
-If the variog.model specified is \kbd{matern} the parameters required are, in order, the nugget effect, the variance, the range, and the smoothness parameter a.
+If the variog.model specified is \kbd{matern} the parameters required are, 
+in order, the nugget effect, the variance, the range, and the smoothness 
+parameter \kbd{a}.
   
  For more details on the valid range for the parameters and for the equation of the variogram models listed above, look below at the section "Details".}
  \item{fix.nugget}{logical field indicating whether the nugget should be considered fixed or not. 
@@ -46,7 +51,8 @@ If the variog.model specified is \kbd{matern} the parameters required are, in or
  \item{n.sim}{number of realizations to be simulated.}
  \item{out}{character string indicating the output produced by the function. Possible values are \kbd{VARIOG}, \kbd{FIT} and \kbd{SIM}. 
  
- If \kbd{VARIOG} is specified, the function computes the empirical variogram averaged over time for the forecast errors and displays a plot of the empirical variogram. 
+ If \kbd{VARIOG} is specified, the function computes the empirical 
+variogram of the forecast errors averaged over time and displays a plot of the empirical variogram. 
 
  If \kbd{FIT} is specified, the function, in addition, fits a parametric model to the empirical variogram, returns estimates of the parameters and display both the empirical and the fitted variogram.
  
@@ -88,11 +94,13 @@ empirical variogram in the \eqn{k}th bin and \eqn{\gamma_k(\theta)} is the value
 
 - Parametric variogram models -
 
-The parametric models implemented for the variogram are: exponential, spherical, gaussian, generalized Cauchy and Whittle-Matern.
+The parametric variogram models implemented are: exponential, spherical, 
+gaussian, generalized Cauchy and Whittle-Matern.
 
 - \kbd{exponential}
 
-The equation of the exponential variogram with parameters the nugget effect, \eqn{\rho}, the variance, \eqn{\sigma^{2}}, and the range, \eqn{r}, is given by:
+The equation of the exponential variogram with parameters the nugget 
+effect, \eqn{\rho}, the variance, \eqn{\sigma^{2}}, and the range, \eqn{r}, is given by:
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (1-exp(- \frac{d}{r}))}
  
@@ -146,13 +154,14 @@ If the vector with the cutpoints is not specified, the cutpoints are determined 
 
 The default value for the maximum distance considered in the variogram computation is the \eqn{90}-th percentile of the distances between all stations. 
 
-The default value for the maximum distance is \eqn{\frac{1}{(2 \cdot 
+The default value for the maximum distance is \eqn{\frac{1}{2 \cdot 
 \sqrt{2}}} times the maximum distance considered in the empirical 
 variogram. 
 
-Default for the initial values of the parameters is \kbd{NULL}, in which case the initial values for the parameters are determined internally and depend on the empirical variogram values. By default, the nugget effect is not considered constant. Thus, the default value for the \code{fix.nugget field} is \kbd{FALSE}.
+Default for the initial values of the parameters is \kbd{NULL}, in which 
+case the initial values for the parameters are determined internally and depend on the empirical variogram values. By default, the nugget effect is not considered constant. Thus, the default value for the \code{fix.nugget} field is \kbd{FALSE}.
 
-The default for \kbd{OUT} is \kbd{SIM}: by default, \eqn{99} weather 
+The default for \code{out} is \kbd{SIM}: by default, \eqn{99} weather 
 random fields are simulated, and \eqn{4} of them are displayed. If no 
 vector of percentiles, is provided, the \eqn{10}th, \eqn{50}th and \eqn{90}th percentiles are determined and displayed.  
 }
@@ -181,7 +190,10 @@ The numerical summary include the following:
   \item{nugget}{Estimate of the nugget effect. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
   \item{variance}{Estimate of the variance. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
   \item{range}{Estimate of the range. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
-  \item{additional.par}{Numeric vector with the estimates of the additional parameters required by the parametric variogram model (only if the model specified is either \kbd{whittlematern} or \kbd{gencauchy}. This is provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
+  \item{additional.par}{Numeric vector with the estimates of the 
+additional parameters required by the parametric variogram model (only if 
+the model specified is either \kbd{whittlematern} or \kbd{gencauchy}). 
+This is provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
   \item{sim.fields}{3-dimensional array where each layer contains the values of the simulated weather field at the gridded locations. Provided only if \code{out} is equal to \kbd{SIM}.}
   \item{pct.fields}{3-dimensional array where each layer contains the specified percentiles of the weather field. Provided only if \code{out} is equal to \kbd{SIM}.}
 }
@@ -215,7 +227,11 @@ Nychka, D. (2004). \emph{The fields package}. Available at: http:lib.stat.cmu.ed
 computing time. Hence, it is advisable to run the function once with 
 \code{out} equal to \kbd{VARIOG}, save part of the output and use it as input for the \code{Variog.fit} function to estimate a parametric variogram model. Finally, \code{Field.sim} will simulate realizations of the weather field from the specified geostatistical model.  }
 
-\seealso{\code{\link{Emp.variog}} for computation of empirical variogram averaged over time, \code{\link{Variog.fit}} for estimation of parameters in a geostatistical model using Weighted Least Square, \code{\link{Field.sim}} for realizations of weather fields with the specified covariance structure.}
+\seealso{\code{\link{Emp.variog}} for computation of empirical variogram 
+of forecast errors averaged over time, \code{\link{Variog.fit}} for 
+estimation of parameters in a geostatistical model using Weighted Least 
+Square, \code{\link{Field.sim}} for realizations of weather fields with 
+the specified covariance structure.}
 
 \examples{
 ## Loading data
@@ -274,7 +290,6 @@ init.val=NULL,fix.nugget=FALSE,coord1.grid,coord2.grid,forecast.grid,n.sim=99,ou
 
 
 ####################  INPUT CHECK
-
 # default values
 if(missing(cut.points))
   cut.points <- NULL
@@ -299,10 +314,6 @@ if(missing(n.displ))
 if(missing(qt.displ))
   qt.displ <- c(10,50,90)
 
-
-
-
-
 # Here we check if the input is right.
 
 l.day <- length(day)
@@ -318,19 +329,19 @@ if(sum((c(l.day,l.obs,l.for,l.id,l.coord1,l.coord2)/l.day)==rep(1,6))!=6){
 
 
 if(sum(is.numeric(obs)==rep("TRUE",l.obs))<l.obs){
-  stop("Observations should be numerical values")
+  stop("obs should be a numeric vector")
   }
 
 if(sum(is.numeric(forecast)==rep("TRUE",l.for))<l.for){
-  stop("Forecasts should be numerical values")
+  stop("forecasts should be a numeric vector")
   }
 
 if(sum(ceiling(day)==day)<l.day){
-  stop("Day of observation should be an integer")
+  stop("day should be a vector containing integers")
   }
 
 if(sum(is.numeric(coord1)==rep("TRUE",l.coord1)) < l.coord1 | sum(is.numeric(coord2)==rep("TRUE",l.coord2)) < l.coord2){
-  stop("Coordinates of the locations should be numeric field")
+  stop("coord1 and coord2 should be numeric vectors")
   }
 
 
@@ -339,11 +350,11 @@ if(sum(is.numeric(coord1)==rep("TRUE",l.coord1)) < l.coord1 | sum(is.numeric(coo
 
 l.cuts <- length(cut.points)
 if(l.cuts==1){
-  stop("Cutpoints should be a numeric vector")
+  stop("cut.points should be a numeric vector")
   }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))<l.cuts)){
-  stop("Cutpoints should be a numeric vector")
+  stop("cut.points should be a numeric vector")
   }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
@@ -364,14 +375,14 @@ if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
 l.mdist <- length(max.dist)
 
 if(l.mdist > 1){
-   stop("Max.dist is a numeric field, not a vector")}
+   stop("max.dist is a numeric field, not a vector")}
 
 if(l.mdist==1){
   if(is.numeric(max.dist)==FALSE){
-    stop("Max.dist is a numeric field")
+    stop("max.dist is a numeric field")
   }
   if(max.dist < 0){
-    stop("Max.dist should be a positive number")
+    stop("max.dist should be a positive number")
   }
   }
 
@@ -389,7 +400,7 @@ if(l.nbins==1 & l.cuts >=2){
 l.nbins <- length(nbins)
 
 if(l.nbins >1){
-   stop("Nbins is a should be an integer: not a vector")
+   stop("nbins is a should be an integer: not a vector")
   }
 
 if(l.nbins==1){
@@ -437,19 +448,19 @@ if(case.var==0){
 l.max.dist.fit <- length(max.dist.fit)
 
 if(l.max.dist.fit > 1){
-  stop("Max.dist.fit should be a numeric field: not a vector")
+  stop("max.dist.fit should be a numeric field: not a vector")
   }
 
 if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==FALSE){
-  stop("Max.dist.fit should be a numeric field")
+  stop("max.dist.fit should be a numeric field")
   }
 
 if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
   if(max.dist.fit < 0){
-    stop("Max.dist.fit should be a positive number")
+    stop("max.dist.fit should be a positive number")
   }
   if(max.dist.fit > max.dist){
-    stop("Max.dist.fit should be less or equal than max.dist")
+    stop("max.dist.fit should be less or equal than max.dist")
   }
   }
  
@@ -459,7 +470,7 @@ if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
 l.init.val <- length(init.val)
 
 if(l.init.val > 0 & l.init.val <3 ){
-  stop("Init.val should be equal to NULL or to a vector of at least length 3")
+  stop("init.val should be equal to NULL or to a vector of at least length 3")
   }
 
 if(l.init.val ==3 & (sum(is.numeric(init.val)==rep("TRUE",3)) < l.init.val)){
@@ -493,7 +504,7 @@ l.nug <- length(fix.nugget)
 
 if(l.nug==1){
   if(fix.nugget!=TRUE & fix.nugget!=FALSE){
-   stop("Fix.nugget should be either equal to TRUE or FALSE")
+   stop("fix.nugget should be either equal to TRUE or FALSE")
    }
   }
 
@@ -516,7 +527,7 @@ if(l.nug==2){
   }
 
 if(l.nug >2){
-  stop("Fix.nugget is either a character field or a field of length 2")
+  stop("fix.nugget is either a character field or a field of length 2")
   }
    
 ## check on the latitude and forecast grid
@@ -552,7 +563,7 @@ l.sim <- length(n.sim)
 
 
 if(length(n.sim)> 1){
-  stop("N.sim is a numeric field: not a vector")
+  stop("n.sim is a numeric field: not a vector")
   }
 
 if(length(n.sim)==1){
@@ -578,12 +589,12 @@ if(l.out==0){
   }
 
 if(l.out > 1){
-  stop("Out is a character field: not a vector")
+  stop("out is a character field: not a vector")
   }
 
 if(l.out==1){
   if(is.character(out)!=TRUE){
-  stop("Out is a character field")
+  stop("out is a character field")
   }
   if(out=="VARIOG"){ case.out <- 1}
   if(out=="FIT"){ case.out <- 1}
@@ -591,7 +602,7 @@ if(l.out==1){
   }
 
 if(case.out==0){
-  stop("Out is a character field, equal to either VARIOG, FIT or SIM")
+  stop("out is a character field, equal to either VARIOG, FIT or SIM")
   }
 
 
@@ -602,22 +613,22 @@ if(l.displ==0){
 
 l.displ <- length(n.displ)
 if(l.displ > 1){
-  stop("N.displ is a numeric field: not a vector")
+  stop("n.displ is a numeric field: not a vector")
   }
 
 
 if(l.displ==1){
  if(is.numeric(n.displ)!=TRUE){
-  stop("N.displ is a numeric field")
+  stop("n.displ is a numeric field")
  }
  if(ceiling(n.displ)!=n.displ){
-  stop("N.displ should be an integer number")
+  stop("n.displ should be an integer number")
  }
  if(n.displ < 0){
-  stop("N.displ should be an integer non-negative number")
+  stop("n.displ should be an integer non-negative number")
  }
  if(n.displ > n.sim){
-  stop("N.displ should be less or equal to n.sim")
+  stop("n.displ should be less or equal to n.sim")
  }
 }
 
@@ -630,7 +641,7 @@ l.qt <- length(qt.displ)
 
 if(l.qt >0){
  if(sum(is.numeric(qt.displ)==rep("TRUE",l.qt))<l.qt){
-  stop("Qt.displ is a numeric vector")
+  stop("qt.displ is a numeric vector")
   }
  if(sum(ceiling(qt.displ)==rep(qt.displ,l.qt))<l.qt){
   stop("The elements of qt.displ should be integer numbers")
@@ -724,12 +735,13 @@ if(length(cut.points)==0){
 
 
 # this part is to calculate the empirical variogram
-emp.variog <- avg.variog(day,coord1,coord2,id,gop.res,cut.points)
+emp.variog <- avg.variog(day,coord1,coord2,id,gop.res,cut.points,max.dist,nbins)
 
 if(out=="VARIOG"){
-  ProbForecast.VARIOG <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-              number.pairs=emp.variog[,2],empir.variog=emp.variog[,3])
-  plot(emp.variog[,1],emp.variog[,3],xlab="Distance in km",ylab="Semi-variance",main="Empirical variogram")
+  ProbForecast.VARIOG <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+              number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog)
+  plot(emp.variog$bin.midpoints,emp.variog$empir.variog,xlab="Distance in km",ylab="Semi-variance",main="Empirical variogram")
   return(ProbForecast.VARIOG)
   stop}
 
@@ -745,21 +757,24 @@ if(out=="VARIOG"){
 
 
 init.var <- var(gop.res)
-param.est <- round(model.fit(variog.model,emp.variog,max.dist.fit,init.val,init.var,fix.nugget),3)
+emp.variog.mod <- list(bin.midpoints=emp.variog$bin.midpoints,number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog)
+param.est <- round(model.fit(variog.model,emp.variog.mod,max.dist.fit,init.val,init.var,fix.nugget),3)
 
 
 if(variog.model=="matern"){variog.model <- "whittlematern"}
 if(out=="FIT"){
   ifelse((variog.model=="whittlematern" | variog.model=="gencauchy"),
-   ProbForecast.FIT <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-              number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+   ProbForecast.FIT <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+              number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3],additional.par=param.est[-seq(1:3)]),
-   ProbForecast.FIT <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-              number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+   ProbForecast.FIT <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+  number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3]))
 
-   plot(emp.variog[,1],emp.variog[,3],xlab="Distance in km",ylab="Semivariance")
-   lines(emp.variog[,1],linesmodel(emp.variog[,1],variog.model,param.est),lwd=3,col="red")
+   plot(emp.variog$bin.midpoints,emp.variog$empir.variog,xlab="Distance in km",ylab="Semivariance")
+   lines(emp.variog$bin.midpoints,linesmodel(emp.variog$bin.midpoints,variog.model,param.est),lwd=3,col="red")
    return(ProbForecast.FIT)
    stop}
 
@@ -805,17 +820,19 @@ if(l.qtdispl==1 & qt.displ[1]==0){
 # here we return the output
 if(out=="SIM"){
    if(variog.model=="whittlematern" | variog.model=="gencauchy"){
-      ProbForecast.SIM <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-                   number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+      ProbForecast.SIM <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+                   number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3],additional.par=param.est[-seq(1:3)],sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
 
    if(variog.model!="whittlematern" & variog.model!="gencauchy"){
-      ProbForecast.SIM <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-                   number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+      ProbForecast.SIM <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+                   number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3],sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
 
-   plot(emp.variog[,1],emp.variog[,3],xlab="Distance in km",ylab="Semivariance")
-   lines(emp.variog[,1],linesmodel(emp.variog[,1],variog.model,param.est),lwd=3,col="red")
+   plot(emp.variog$bin.midpoints,emp.variog$empir.variog,xlab="Distance in km",ylab="Semivariance")
+   lines(emp.variog$bin.midpoints,linesmodel(emp.variog$bin.midpoints,variog.model,param.est),lwd=3,col="red")
 
    lims <- c(min(sim.out.1[,,1:n.displ],na.rm=TRUE),max(sim.out.1[,,1:n.displ],na.rm=TRUE))
    

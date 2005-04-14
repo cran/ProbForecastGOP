@@ -3,8 +3,8 @@ function(coord1,coord2,id,tol.angle.rad1,tol.angle.rad2,type){
   radius <- 6378.1
   mat.id <- matrix(cbind(coord1,coord2,id),ncol=3)
   unique.mat.id <- unique(mat.id)
-  coord1.u <- unique.mat.id[,1]
-  coord2.u <- unique.mat.id[,2]
+  coord1.u <- as.numeric(unique.mat.id[,1])
+  coord2.u <- as.numeric(unique.mat.id[,2])
   n.id <- length(coord1.u)
   dist.matrix <- matrix(0,nrow=n.id,ncol=n.id)  
   coord1.norm <- coord1.u/57.29577951

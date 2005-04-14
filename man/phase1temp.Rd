@@ -15,15 +15,21 @@ MM5 Mesoscale Ensemble.
 \format{
 A matrix with 56489 rows and 6 columns. The columns are:
 
-\emph{date.obs} a numeric vector giving the date of observations in the YYYYMMDDHH format.
+\emph{date.obs} a numeric vector giving the date of observations in the 
+YYYYMMDDHH format.
 
-\emph{name.stat} a character string giving the identifier of the metereological stations.
+\emph{name.stat} a character string giving the identifier of the 
+metereological stations.
 
-\emph{lon.stat} a numeric vector giving the longitudes of the metereological stations.
+\emph{lon.stat} a numeric vector giving the longitudes of the 
+metereological stations.
 
-\emph{lat.stat} a numeric vector giving the latitudes of the metereological stations.
+\emph{lat.stat} a numeric vector giving the latitudes of the 
+metereological stations.
 
-\emph{forecast} a numeric vector giving the 48-hr temperature forecasts as provided by the Aviation (AVN) member of the University of Washington MM5 ensemble.
+\emph{forecast} a numeric vector giving the 48-hr temperature forecasts as 
+provided by the Aviation (AVN) member of the University of Washington MM5 
+ensemble.
 
 \emph{obs} a numeric vector giving the observed temperatures.
 }

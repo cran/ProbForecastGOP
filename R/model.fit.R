@@ -1,19 +1,19 @@
 "model.fit" <-
 function(par.model,emp.variog,max.dist.fit,init.val,init.var,fix.nugget){
   if(length(max.dist.fit)==0){
-    l.emp.variog <- length(emp.variog[,3])
-    h.bin.size <- (emp.variog[l.emp.variog,1]-emp.variog[(l.emp.variog-1),1])/2
-    max.dist.fit <- (emp.variog[l.emp.variog]+h.bin.size)/(2*sqrt(2))
+    l.emp.variog <- length(emp.variog$empir.variog)
+    h.bin.size <- (emp.variog$bin.midpoints[l.emp.variog]-emp.variog$bin.midpoints[(l.emp.variog-1)])/2
+    max.dist.fit <- (emp.variog$bin.midpoints[l.emp.variog]+h.bin.size)/(2*sqrt(2))
   }
-  d <- emp.variog[,1][0 < emp.variog[,1] & emp.variog[,1] <= max.dist.fit]
-  variog <- emp.variog[,3][0 < emp.variog[,1] & emp.variog[,1] <= max.dist.fit]
-  w <- emp.variog[,2][0 < emp.variog[,1] & emp.variog[,1] <= max.dist.fit]
+  d <- emp.variog$bin.midpoints[0 < emp.variog$bin.midpoints & emp.variog$bin.midpoints <= max.dist.fit]
+  variog <- emp.variog$empir.variog[0 < emp.variog$bin.midpoints & emp.variog$bin.midpoints <= max.dist.fit]
+  w <- emp.variog$number.pairs[0 < emp.variog$bin.midpoints & emp.variog$bin.midpoints <= max.dist.fit]
   if(length(init.val)==0){
    if(length(fix.nugget)==2){
     nugget.init.val <- as.numeric(fix.nugget[2])
    }
    if(length(fix.nugget)<2){
-     nugget.init.val <- lowess(emp.variog[,1],emp.variog[,3])$y[1]
+     nugget.init.val <- lowess(emp.variog$bin.midpoints,emp.variog$empir.variog)$y[1]
    }
    var.init.val <- init.var - nugget.init.val
   }

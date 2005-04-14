@@ -1,51 +1,52 @@
 \name{Emp.variog}
 \alias{Emp.variog}
-\title{Empirical variogram averaged over time}
+\title{Empirical variogram of forecast errors averaged over time}
 \description{
 Calculates the empirical variogram of forecast errors, averaged over time. 
 }
 
 \usage{
-Emp.variog(day, obs, forecast, id, coord1, coord2, 
-cut.points=NULL, max.dist=NULL, nbins=300)
+Emp.variog(day, obs, forecast, id, coord1, coord2, cut.points=NULL, max.dist=NULL, nbins=300)
 }
 
 \arguments{
   \item{day}{numeric vector containing the day of observation.}
   \item{obs}{numeric vector containing the observed weather quantity.}
   \item{forecast}{numeric vector containing the forecasted weather quantity.}
-  \item{id}{vector with the id of the metereological stations in the dataset.}
+  \item{id}{vector with the id of the metereological stations.}
   \item{coord1}{vector containing the longitudes of the metereological stations.}
   \item{coord2}{vector containing the latitudes of the metereological stations.}
   \item{cut.points}{numeric vector containing the cutpoints used for variogram binning.}
-  \item{max.dist}{a numerical value giving the upper bound on the distance considered in the variogram computation.}
-  \item{nbins}{a numerical value giving the number of bins for variogram binning. If both cut.points and nbins are entered, the entry for nbins will be ignored and the vector with the cutpoints will instead be used for variogram binning.} 
+  \item{max.dist}{a numerical value giving the upper bound for the distance considered in the variogram computation.}
+  \item{nbins}{a numerical value giving the number of bins for variogram 
+binning. If both \code{cut.points} and \code{nbins} are entered, the entry 
+for \code{nbins} will be ignored and the vector with the cutpoints will 
+instead be used for variogram binning.} 
 }
 
 \details{
-The function includes bias-correction; it regresses the forecast on the 
+The function includes bias-correction; it regresses the forecasts on the 
 observed weather quantity and computes the residuals. The empirical variogram of the residuals is then calculated by determining, for each day, the distance among all pairs of stations that have been observed in the same day and by calculating for each day the sum of all the squared differences in the residuals within each bin. These sums are then averaged over time, with weights for each bin given by the sum over time of the number of pairs of stations within the bin. 
 
 The formula used is:
  \deqn{ \gamma(h) = \sum_d \frac{1}{2N_{(h,d)}} (\sum_i (Y(x_{i}+h,d)-Y(x_{i},d))^2)}
 
 where \eqn{\gamma(h)} is the empirical variogram at distance \eqn{h}, \eqn{N_{(h,d)}} is the number of pairs of stations that have been recorded at day \eqn{d} and whose 
-distance is equal to \eqn{h}, and \eqn{Y(x_{i}+h,d)} and \eqn{Y(x_{i},d)} 
-are, respectively, the value of weather quantity observed on day \eqn{d} at stations located at \eqn{x_{i}+h} and \eqn{x_{i}}. Variogram binning is ignored in this formula. 
+distance is equal to \eqn{h}, and \eqn{Y(x_{i}+h,d)} and \eqn{Y(x_{i},d)} are, respectively, the values of the residuals on day \eqn{d} at stations located at \eqn{x_{i}+h} 
+and \eqn{x_{i}}. Variogram binning is ignored in this formula.
 
-- Defaults -
+\bold{- Defaults}
  
 If the vector with the cutpoints is not specified, the cutpoints are determined so that there are \code{nbins} bins with approximately the same number of pairs per bin. 
 
 If both the vector with the cutpoints and the number of bins, \code{nbins}, are unspecified, the function by default determines the cutpoints so that there are 300 bins with approximately the same number of pairs per bin. If both the vector with the cutpoints and the number of bins are provided, the entry for the number of bins is ignored and the vector with the cutpoints is used for variogram binning.
 
-The default value for the maximum distance considered in the variogram 
-computation is the \eqn{90}-th percentile of the distances between the stations. 
+The default value for the maximum distance considered in the variogram computation is the \eqn{90}-th percentile of the distances between the stations. 
 }
 
 \value{
 The function returns a list with components given by:
-  \item{res.var}{Variance of the forecast errors.}
+  \item{mar.var}{Marginal variance of the forecast errors.}
   \item{bin.midpoints}{Numeric vector with midpoints of the bins used in the empirical variogram computation.}
   \item{number.pairs}{Numeric vector with the number of pairs per bin.}
   \item{empir.variog}{Numeric vector with the empirical variogram values.}
@@ -57,15 +58,20 @@ mesoscale weather field forecasting: The Geostatistical Output
 Perturbation (GOP) method (with discussion). \emph{Journal of the American 
 Statistical Association}, \bold{Vol. 99 (467)}, 575--583.  
 
-Cressie, N. A. C. (1993). \emph{Statistics for Spatial Data} (revised ed.). Wiley: New York.}
+Cressie, N. A. C. (1993). \emph{Statistics for Spatial Data} (revised ed.). Wiley: New York.
+}
 
 \author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
 
-\note{Depending on the data, the function might require substantial 
-computing time. As a consequence, if the interest is in producing 
-probabilistic weather forecasts and generating ensemble members, it is advised to save the output in a file and then use the \code{\link{Variog.fit}} and \code{\link{Field.sim}} functions.  }
+\note{Depending on the data, the function might require substantial computing time. As a consequence, if the interest is in producing 
+probabilistic weather forecasts and generating ensemble members, it is advised to save the output in a file and then use the 
+\code{\link{Variog.fit}} and \code{\link{Field.sim}} functions.  
+}
 
-\seealso{\code{\link{EmpDir.variog}} for directional empirical variogram averaged over time, and \code{\link{Variog.fit}} for estimation of parameters in a parametric variogram model.}
+\seealso{\code{\link{EmpDir.variog}} for directional empirical variogram of forecast errors averaged over time, \code{\link{avg.variog}} and 
+\code{\link{avg.variog.dir}} for, respectively, empirical and directional empirical variogram of a random variable averaged over time, and 
+\code{\link{Variog.fit}} for estimation of parameters in a parametric variogram model.
+}
 
 \examples{
 ## Loading data
@@ -117,22 +123,22 @@ if(sum((c(l.day,l.obs,l.for,l.id,l.coord1,l.coord2)/l.day)==rep(1,6))!=6){
   stop("Error in the dimension of the data")
 }
 if(sum(is.numeric(obs)==rep("TRUE",l.obs))<l.obs){
-  stop("The vector of observations should be a numeric vector")
+  stop("observations should be a numeric vector")
 }
 if(sum(ceiling(day)==day)<l.day){
-  stop("Day of observation should be an integer")
+  stop("day should be an integer")
 }
 if(sum(is.numeric(coord1)==rep("TRUE",l.coord1)) < l.coord1 | sum(is.numeric(coord2)==rep("TRUE",l.coord2)) < l.coord2){
-  stop("Coordinates of the locations should be numeric fields")
+  stop("coord1 and coord2 should be numeric vectors")
 }
 ## here we check the cutpoints vector
 l.cuts <- length(cut.points)
 if(l.cuts==1){
-  stop("Cut points should be a numeric vector")
+  stop("cut.points should be a numeric vector")
 }
 
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))<l.cuts)){
-  stop("Cut points should be a numeric vector")
+  stop("cut.points should be a numeric vector")
 }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
@@ -150,13 +156,13 @@ if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
 ## check on the max.dist
 l.mdist <- length(max.dist)
 if(l.mdist > 1){
-   print("Max.dist is a numeric field, not a vector")}
+   print("max.dist is a numeric field, not a vector")}
 if(l.mdist==1){
   if(is.numeric(max.dist)==FALSE){
-    stop("Max.dist is a numeric field")
+    stop("max.dist is a numeric field")
   }
   if(max.dist < 0){
-    stop("Max.dist should be a positive number")
+    stop("max.dist should be a positive number")
   }
 }
 ## check on the number of bins
@@ -169,7 +175,7 @@ if(l.nbins==1 & l.cuts >=2){
 }
 l.nbins <- length(nbins)
 if(l.nbins >1){
-   stop("Nbins should be an integer: not a vector")
+   stop("nbins should be an integer: not a vector")
 }
 
 if(l.nbins==1){
@@ -195,7 +201,7 @@ gop.mod <- lm(obs~forecast)
 gop.res <- gop.mod$res
 gop.var <- var(gop.res)
 # the second step is to determine the empirical variograms: if the vector with the cutpoints
-# is not specified, we determine the cutpoints by looking at the day with the median average 
+# is not specified, we determine the cutpoints by looking at the day with the median number  
 # of observations, we calculate the cutpoints so that the number 
 # of bins is equal to the one specified and each bin contains approx the same number of pairs. If the vector with the 
 # cutpoints is specified, then we just use that vector of cutpoints.
@@ -242,11 +248,95 @@ if(length(cut.points)==0){
 }
 
 # this part is to calculate the empirical variogram
-variogram <- avg.variog(day,coord1,coord2,id,gop.res,cut.points)
-output <- list(res.var=round(gop.var,3),bin.midpoints=variogram[,1],
-              number.pairs=variogram[,2],empir.variog=variogram[,3])
-return(output)
-  }
+unique.day <- unique(day)
+l.day <- length(unique.day)
+n.stations <- length(unique(id))
+n.cuts <- length(cut.points)
+W <- rep(0,(n.cuts-1))
+W.obs <- rep(0,(n.cuts-1))
+for(i in 1:l.day){
+       distance.day <- NULL
+       difference.day <- NULL
+       new.dist.day <- NULL
+       s.new.dist.day <- NULL
+       o.new.dist.day <- NULL
+       new.diff.day <- NULL   
+       s.new.diff.day <- NULL
+       gop.res.day <- NULL
+       id.day <- NULL
+       coord1.day <- NULL 
+       coord2.day <- NULL
+       gop.res.day <- gop.res[day==unique.day[i]]
+       id.day <- id[day==unique.day[i]]
+       coord1.day <- coord1[day==unique.day[i]]
+       coord2.day <- coord2[day==unique.day[i]]
+       distance.day <- calc.dist(coord1.day,coord2.day,id.day)
+       new.dist.day <- distance.day[lower.tri(distance.day)]
+       s.new.dist.day <- sort(new.dist.day)
+       o.new.dist.day <- order(new.dist.day)
+       difference.day  <- calc.difference(gop.res.day)
+       new.diff.day <- difference.day[lower.tri(difference.day)]
+       s.new.diff.day <- new.diff.day[o.new.dist.day]
+       W.new <- rep(0,(n.cuts-1))
+       W.obs.new <- rep(0,(n.cuts-1))  
+       
+       for(s in 1:(n.cuts-1)){
+           low.bound <- cut.points[s]
+           upp.bound <- cut.points[s+1]
+           v.dist <- NULL
+           v.dist1 <- NULL
+           v.diff1 <- NULL
+           index.v.dist <- NULL
+           index.v.dist1 <- NULL
+       
+           if(s < (n.cuts-1)){
+                v.dist <- s.new.dist.day[s.new.dist.day >= low.bound & s.new.dist.day < upp.bound]
+                index.v.dist <- seq(1:length(s.new.dist.day))[s.new.dist.day >= low.bound & s.new.dist.day < upp.bound]
+                v.dist1 <- v.dist[v.dist!=0]
+                index.v.dist1 <- index.v.dist[v.dist!=0]
+           
+                if(length(v.dist1) >=1){
+                   v.diff1 <- s.new.diff.day[index.v.dist1]
+                   W.new[s] <- sum(v.diff1)
+                   W.obs.new[s] <- length(v.dist1)}
+                if(length(v.dist1) ==0){
+                   W.new[s] <- 0
+                   W.obs.new[s] <- 0}
+           }
+           if(s==(n.cuts-1)){
+                 v.dist <- s.new.dist.day[s.new.dist.day >= low.bound & s.new.dist.day <= upp.bound]
+                 index.v.dist <- seq(1:length(s.new.dist.day))[s.new.dist.day >= low.bound & s.new.dist.day <= upp.bound]
+                 v.dist1 <- v.dist[v.dist!=0]
+                 index.v.dist1 <- index.v.dist[v.dist!=0]  
+                   
+                 if(length(v.dist1) >=1){
+                   v.diff1 <- s.new.diff.day[index.v.dist1]
+                   W.new[s] <- sum(v.diff1)
+                   W.obs.new[s] <- length(v.dist1)}
+                 if(length(v.dist1) ==0){
+                   W.new[s] <- 0
+                   W.obs.new[s] <- 0}
+           }
+       }
+   W <- W+W.new
+   W.obs <- W.obs + W.obs.new
+   }
+   avg.variog <- round(W/(2*W.obs),2)
+   n.h <- W.obs
+   x.vec <- NULL
+   for(i in 1:(n.cuts-1)){
+     x.vec[i] <- (cut.points[i]+cut.points[i+1])/2
+   }
+   fin.avg.variog <- c(0,avg.variog)
+   fin.x.vec <- c(0,x.vec)
+   fin.n.h <- c(n.stations,n.h)
+   B <- list(mar.var=round(gop.var,3),bin.midpoints=fin.x.vec,number.pairs=fin.n.h,empir.variog=fin.avg.variog)
+   return(B)
 }
 }
-\keyword{file}
+}
+\keyword{file}   
+
+
+
+

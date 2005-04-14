@@ -14,16 +14,21 @@ linesmodel(distance, variog.model="exponential", param)
  \item{variog.model}{character string giving the name of the parametric variogram model. Implemented models are: \kbd{exponential}, \kbd{spherical}, \kbd{gauss}, \kbd{gencauchy} and \kbd{matern}.}
  \item{param}{numeric vector containing the values of the variogram parameters. 
  
-If the parametric model specified is \kbd{exponential}, \kbd{spherical} or \kbd{gauss}, param is a vector of length 3 containing, in order: the nugget effect (non negative number), the variance and the range (both positive numbers). 
+If the parametric model specified is \kbd{exponential}, \kbd{spherical} or 
+\kbd{gauss}, \code{param} is a vector of length 3 containing, in order: 
+the nugget effect (non negative number), the variance and the range (both 
+positive numbers).
 
-If the parametric model specified is \kbd{gencauchy}, param is a vector of 
-length 5 whose entries are, in order: the nugget effect (non negative 
-number), the variance, the range (both positive numbers), the smoothness 
-parameter a (a number in \eqn{(0,2]}), and the long-range parameter b (a 
-positive number). 
+If the parametric model specified is \kbd{gencauchy}, \code{param} is a 
+vector of length 5 whose entries are, in order: the nugget effect (non 
+negative number), the variance, the range (both positive numbers), the 
+smoothness parameter \kbd{a} (a number in \eqn{(0,2]}), and the long-range 
+parameter \kbd{b} (a positive number).
 
-If the parametric model specified is \kbd{matern}, param is a vector of length 4 whose entries are, in order: the nugget effect (a non-negative number), the variance, the range, and the smoothness parameter a (all three, positive numbers).}
-}
+If the parametric model specified is \kbd{matern}, \code{param} is a 
+vector of length 4 whose entries are, in order: the nugget effect (a 
+non-negative number), the variance, the range, and the smoothness 
+parameter \kbd{a} (all three, positive numbers).} }
 
 \details{
  The function calculates the value of the parametric variogram at given distances using the following equations:
@@ -55,7 +60,9 @@ If the parametric model specified is \kbd{matern}, param is a vector of length 4
  \deqn{\gamma(d) = \rho+\sigma^{2} \cdot 
 (1-(1+\frac{d^a}{r^a})^{- \frac{b}{a}})}
 
- where \eqn{\rho} is the nugget effect, \eqn{\sigma^2} is the variance, \eqn{r} is the range, and \eqn{d} is the distance.
+ where \eqn{\rho} is the nugget effect, \eqn{\sigma^2} is the variance, 
+\eqn{r} is the range, \eqn{d} is the distance, \eqn{a} is the smoothness 
+parameter, and \eqn{b} is the long-range parameter.
 
 
 - If the parametric model is \kbd{matern}
@@ -63,8 +70,9 @@ If the parametric model specified is \kbd{matern}, param is a vector of length 4
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (1-(\frac{2^{1-a}}{\Gamma(a)}\cdot 
 \frac{d^a}{r^a} \cdot K_{a}(\frac{d}{r}))}
 
-where \eqn{\rho} is the nugget effect, \eqn{\sigma^2} is the variance, \eqn{r} is the range, and \eqn{d} is the distance.
-}
+where \eqn{\rho} is the nugget effect, \eqn{\sigma^2} is the variance, 
+\eqn{r} is the range, \eqn{d} is the distance, and \eqn{a} is the 
+smoothness parameter. }
 
 \value{
 The function returns a numeric vector with the values of the parametric variogram model at the bin midpoints.
@@ -136,7 +144,7 @@ if(l.dist <1){
   }
 
 if(l.dist>=1 & (sum(is.numeric(distance)==rep("TRUE",l.dist)) < l.dist)){
-  stop("Distance should be a numeric vector")
+  stop("distance should be a numeric vector")
   }
 
 if(l.dist>=1 & (sum(is.numeric(distance)==rep("TRUE",l.dist))==l.dist)){

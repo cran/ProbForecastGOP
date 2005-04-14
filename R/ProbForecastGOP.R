@@ -29,10 +29,6 @@ if(missing(n.displ))
 if(missing(qt.displ))
   qt.displ <- c(10,50,90)
 
-
-
-
-
 # Here we check if the input is right.
 
 l.day <- length(day)
@@ -48,19 +44,19 @@ if(sum((c(l.day,l.obs,l.for,l.id,l.coord1,l.coord2)/l.day)==rep(1,6))!=6){
 
 
 if(sum(is.numeric(obs)==rep("TRUE",l.obs))<l.obs){
-  stop("Observations should be numerical values")
+  stop("obs should be a numeric vector")
 }
 
 if(sum(is.numeric(forecast)==rep("TRUE",l.for))<l.for){
-  stop("Forecasts should be numerical values")
+  stop("forecast should be a numeric vector")
 }
 
 if(sum(ceiling(day)==day)<l.day){
-  stop("Day of observation should be an integer")
+  stop("day should be a vector containing integers")
 }
 
 if(sum(is.numeric(coord1)==rep("TRUE",l.coord1)) < l.coord1 | sum(is.numeric(coord2)==rep("TRUE",l.coord2)) < l.coord2){
-  stop("Coordinates of the locations should be numeric field")
+  stop("coord1 and coord2 should be numeric vectors")
 }
 
 
@@ -69,11 +65,11 @@ if(sum(is.numeric(coord1)==rep("TRUE",l.coord1)) < l.coord1 | sum(is.numeric(coo
 
 l.cuts <- length(cut.points)
 if(l.cuts==1){
-  stop("Cutpoints should be a numeric vector")
+  stop("cut.points should be a numeric vector")
 }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))<l.cuts)){
-  stop("Cutpoints should be a numeric vector")
+  stop("cut.points should be a numeric vector")
 }
  
 if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
@@ -94,14 +90,14 @@ if(l.cuts>=2 & (sum(is.numeric(cut.points)==rep("TRUE",l.cuts))==l.cuts)){
 l.mdist <- length(max.dist)
 
 if(l.mdist > 1){
-   stop("Max.dist is a numeric field, not a vector")}
+   stop("max.dist is a numeric field, not a vector")}
 
 if(l.mdist==1){
   if(is.numeric(max.dist)==FALSE){
-    stop("Max.dist is a numeric field")
+    stop("max.dist is a numeric field")
   }
   if(max.dist < 0){
-    stop("Max.dist should be a positive number")
+    stop("max.dist should be a positive number")
   }
 }
 
@@ -119,7 +115,7 @@ if(l.nbins==1 & l.cuts >=2){
 l.nbins <- length(nbins)
 
 if(l.nbins >1){
-   stop("Nbins is a should be an integer: not a vector")
+   stop("nbins is a should be an integer: not a vector")
 }
 
 if(l.nbins==1){
@@ -167,19 +163,19 @@ if(case.var==0){
 l.max.dist.fit <- length(max.dist.fit)
 
 if(l.max.dist.fit > 1){
-  stop("Max.dist.fit should be a numeric field: not a vector")
+  stop("max.dist.fit should be a numeric field: not a vector")
 }
 
 if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==FALSE){
-  stop("Max.dist.fit should be a numeric field")
+  stop("max.dist.fit should be a numeric field")
 }
 
 if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
   if(max.dist.fit < 0){
-    stop("Max.dist.fit should be a positive number")
+    stop("max.dist.fit should be a positive number")
   }
   if(max.dist.fit > max.dist){
-    stop("Max.dist.fit should be less or equal than max.dist")
+    stop("max.dist.fit should be less or equal than max.dist")
   }
 }
  
@@ -189,7 +185,7 @@ if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
 l.init.val <- length(init.val)
 
 if(l.init.val > 0 & l.init.val <3 ){
-  stop("Init.val should be equal to NULL or to a vector of at least length 3")
+  stop("init.val should be equal to NULL or to a vector of at least length 3")
 }
 
 if(l.init.val ==3 & (sum(is.numeric(init.val)==rep("TRUE",3)) < l.init.val)){
@@ -223,7 +219,7 @@ l.nug <- length(fix.nugget)
 
 if(l.nug==1){
   if(fix.nugget!=TRUE & fix.nugget!=FALSE){
-   stop("Fix.nugget should be either equal to TRUE or FALSE")
+   stop("fix.nugget should be either equal to TRUE or FALSE")
    }
 }
 
@@ -246,7 +242,7 @@ if(l.nug==2){
 }
 
 if(l.nug >2){
-  stop("Fix.nugget is either a character field or a field of length 2")
+  stop("fix.nugget is either a character field or a field of length 2")
 }
    
 ## check on the latitude and forecast grid
@@ -282,7 +278,7 @@ l.sim <- length(n.sim)
 
 
 if(length(n.sim)> 1){
-  stop("N.sim is a numeric field: not a vector")
+  stop("n.sim is a numeric field: not a vector")
 }
 
 if(length(n.sim)==1){
@@ -308,12 +304,12 @@ if(l.out==0){
 }
 
 if(l.out > 1){
-  stop("Out is a character field: not a vector")
+  stop("out is a character field: not a vector")
 }
 
 if(l.out==1){
   if(is.character(out)!=TRUE){
-  stop("Out is a character field")
+  stop("out is a character field")
   }
   if(out=="VARIOG"){ case.out <- 1}
   if(out=="FIT"){ case.out <- 1}
@@ -321,7 +317,7 @@ if(l.out==1){
 }
 
 if(case.out==0){
-  stop("Out is a character field, equal to either VARIOG, FIT or SIM")
+  stop("out is a character field, equal to either VARIOG, FIT or SIM")
 }
 
 
@@ -332,22 +328,22 @@ if(l.displ==0){
 
 l.displ <- length(n.displ)
 if(l.displ > 1){
-  stop("N.displ is a numeric field: not a vector")
+  stop("n.displ is a numeric field: not a vector")
 }
 
 
 if(l.displ==1){
  if(is.numeric(n.displ)!=TRUE){
-  stop("N.displ is a numeric field")
+  stop("n.displ is a numeric field")
  }
  if(ceiling(n.displ)!=n.displ){
-  stop("N.displ should be an integer number")
+  stop("n.displ should be an integer number")
  }
  if(n.displ < 0){
-  stop("N.displ should be an integer non-negative number")
+  stop("n.displ should be an integer non-negative number")
  }
  if(n.displ > n.sim){
-  stop("N.displ should be less or equal to n.sim")
+  stop("n.displ should be less or equal to n.sim")
  }
 }
 
@@ -360,7 +356,7 @@ l.qt <- length(qt.displ)
 
 if(l.qt >0){
  if(sum(is.numeric(qt.displ)==rep("TRUE",l.qt))<l.qt){
-  stop("Qt.displ is a numeric vector")
+  stop("qt.displ is a numeric vector")
   }
  if(sum(ceiling(qt.displ)==rep(qt.displ,l.qt))<l.qt){
   stop("The elements of qt.displ should be integer numbers")
@@ -454,12 +450,13 @@ if(length(cut.points)==0){
 
 
 # this part is to calculate the empirical variogram
-emp.variog <- avg.variog(day,coord1,coord2,id,gop.res,cut.points)
+emp.variog <- avg.variog(day,coord1,coord2,id,gop.res,cut.points,max.dist,nbins)
 
 if(out=="VARIOG"){
-  ProbForecast.VARIOG <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-              number.pairs=emp.variog[,2],empir.variog=emp.variog[,3])
-  plot(emp.variog[,1],emp.variog[,3],xlab="Distance in km",ylab="Semi-variance",main="Empirical variogram")
+  ProbForecast.VARIOG <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+              number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog)
+  plot(emp.variog$bin.midpoints,emp.variog$empir.variog,xlab="Distance in km",ylab="Semi-variance",main="Empirical variogram")
   return(ProbForecast.VARIOG)
   stop}
 
@@ -475,21 +472,25 @@ if(out=="VARIOG"){
 
 
 init.var <- var(gop.res)
-param.est <- round(model.fit(variog.model,emp.variog,max.dist.fit,init.val,init.var,fix.nugget),3)
+emp.variog.mod <- 
+list(bin.midpoints=emp.variog$bin.midpoints,number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog)
+param.est <- round(model.fit(variog.model,emp.variog.mod,max.dist.fit,init.val,init.var,fix.nugget),3)
 
 
 if(variog.model=="matern"){variog.model <- "whittlematern"}
 if(out=="FIT"){
   ifelse((variog.model=="whittlematern" | variog.model=="gencauchy"),
-   ProbForecast.FIT <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-              number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+   ProbForecast.FIT <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+              number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3],additional.par=param.est[-seq(1:3)]),
-   ProbForecast.FIT <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-              number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+   ProbForecast.FIT <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+              number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3]))
 
-   plot(emp.variog[,1],emp.variog[,3],xlab="Distance in km",ylab="Semivariance")
-   lines(emp.variog[,1],linesmodel(emp.variog[,1],variog.model,param.est),lwd=3,col="red")
+   plot(emp.variog$bin.midpoints,emp.variog$empir.variog,xlab="Distance in km",ylab="Semivariance")
+   lines(emp.variog$bin.midpoints,linesmodel(emp.variog$bin.midpoints,variog.model,param.est),lwd=3,col="red")
    return(ProbForecast.FIT)
    stop}
 
@@ -533,17 +534,19 @@ if(l.qtdispl==1 & qt.displ[1]==0){
 # here we return the output
 if(out=="SIM"){
    if(variog.model=="whittlematern" | variog.model=="gencauchy"){
-      ProbForecast.SIM <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-                   number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+      ProbForecast.SIM <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+                   number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3],additional.par=param.est[-seq(1:3)],sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
 
    if(variog.model!="whittlematern" & variog.model!="gencauchy"){
-      ProbForecast.SIM <- list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog[,1],
-                   number.pairs=emp.variog[,2],empir.variog=emp.variog[,3],model=variog.model,nugget=param.est[1],variance=param.est[2],
+      ProbForecast.SIM <- 
+list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
+                   number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
                    range=param.est[3],sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
 
-   plot(emp.variog[,1],emp.variog[,3],xlab="Distance in km",ylab="Semivariance")
-   lines(emp.variog[,1],linesmodel(emp.variog[,1],variog.model,param.est),lwd=3,col="red")
+   plot(emp.variog$bin.midpoints,emp.variog$empir.variog,xlab="Distance in km",ylab="Semivariance")
+   lines(emp.variog$bin.midpoints,linesmodel(emp.variog$bin.midpoints,variog.model,param.est),lwd=3,col="red")
 
    lims <- c(min(sim.out.1[,,1:n.displ],na.rm=TRUE),max(sim.out.1[,,1:n.displ],na.rm=TRUE))
    
