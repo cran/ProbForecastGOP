@@ -5,12 +5,22 @@
 Plot weather fields.}
 
 \usage{
-plotfields(field, x.lim, y.lim, title)
+plotfields(field, x.lim, y.lim, country.outline="US", title)
 }
 \arguments{
   \item{field}{numeric square matrix containing the values of the weather field on a grid.}
   \item{x.lim}{numeric vector giving the smallest and the largest longitude to be displayed.}
   \item{y.lim}{numeric vector giving the smallest and the largest latitude to be displayed.}
+  \item{country.outline}{character string indicating which country to 
+outline in the plot. Possible values are "US", "world" or "both". If "US" 
+is specified, a medium resolution outline of the US with the states and 
+bodies of water is added to plot. If "world" is specified, a medium 
+resolution of bodies of land and mass of water delimited by the smallest 
+and largest latitude and longitude specified in \code{x.lim} and 
+\code{y.lim} is added to the plot. If \code{country.outline} is set equal 
+to \code{both}, medium resolution of both the US and of the bodies of land 
+and water enclosed between the specified latitude and longitude are added to 
+the plot. Default value is "US"}
   \item{title}{character string with the title for the plot.}
 }
 
@@ -63,18 +73,22 @@ variog.model="exponential", param.est=c(param.est$nugget,param.est$variance,
 param.est$range), n.sim=4, n.displ=0, qt.displ=c(10,50,90))
 
 ##Plotting one of the simulated weather random fields
-par(mfrow=c(1,1))
+par(mfrow=c(1,1),mai=c(0.8,0.8,0.8,0.8))
 plotfields(simul$sim.fields[,,1],x.lim=c(min(coord1.grid),max(coord1.grid)),
-y.lim=c(min(coord2.grid),max(coord2.grid)),title="Simulated weather field")
+y.lim=c(min(coord2.grid),max(coord2.grid)),country.outline="US",title="Simulated weather field")
 
 ## Plotting one of the percentiles of the weather field
-par(mfrow=c(1,1))
+par(mfrow=c(1,1),mai=c(0.8,0.8,0.8,0.8))
 plotfields(simul$pct.fields[,,1],x.lim=c(min(coord1.grid),max(coord1.grid)),
-y.lim=c(min(coord2.grid),max(coord2.grid)),title="10th percentile")
+y.lim=c(min(coord2.grid),max(coord2.grid)),country.outline="US",title="10th percentile")
 
 \dontshow{
 ## The function is currently defined as
-function(field,x.lim,y.lim,title){
+function(field,x.lim,y.lim,country.outline="US",title){
+
+if(missing(country.outline)){
+  country.outline <- "US"
+}
 
 # Input check
 dim.f <- dim(field)
@@ -136,6 +150,16 @@ if(l.limy==2){
   }
   }
 
+# input check on the country.outline field
+if(is.character(country.outline)==FALSE){
+  stop("country.outline can only be equal to US, world or both")
+}
+
+if(country.outline!="US" & country.outline!="world" & country.outline!="both"){
+  stop("country.outline can only be equal to US, world or both")
+}
+
+# here the function starts
 lims <- c(min(field,na.rm=TRUE),max(field,na.rm=TRUE))
 size=65  
 hor.crd <- seq(x.lim[1],x.lim[2],length = size)  
@@ -170,17 +194,25 @@ if(min(ver.crd) <= 49.4 & max(ver.crd) >= 49.4){
   US.map <- 1 + US.map
   }
 
+if(US.map==2 & country.outline=="US"){
+  US(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
+} 
 
-if(US.map==2){
+if(US.map==2 & country.outline!="US"){
   US(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
   world(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)     
   }  
    
-if(US.map < 2){
+if(US.map < 2 & country.outline=="world"){
   world(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
   }
 
-  }
+if(US.map < 2 & (country.outline=="US" || country.outline=="both")){
+  world(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
+  print("The area delimited by the latitude and longitude specified is not 
+contained in the US")
+}
+}
 }
 }
 \keyword{file}

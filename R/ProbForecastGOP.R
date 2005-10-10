@@ -483,7 +483,8 @@ if(out=="FIT"){
    ProbForecast.FIT <- 
 list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
               number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],
-                   range=param.est[3],additional.par=param.est[-seq(1:3)]),
+                   
+range=param.est[3],additional.par=param.est[-seq(1:3)]),
    ProbForecast.FIT <- 
 list(bias.coeff=round(gop.coeff,3),se.bias.coeff=round(gop.se,3),res.var=round(res.var,3),bin.midpoints=emp.variog$bin.midpoints,
               number.pairs=emp.variog$number.pairs,empir.variog=emp.variog$empir.variog,model=variog.model,nugget=param.est[1],variance=param.est[2],

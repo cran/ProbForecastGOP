@@ -44,6 +44,7 @@ if(sum(is.numeric(coord2.grid)==rep(TRUE,l.coord2grid)) < l.coord2grid){
 if(sum(is.numeric(forecast.grid)==rep(TRUE,l.forgrid)) < l.forgrid){
   stop("Invalid input for forecast.grid")
 }
+
 ## check on the variog.model
 l.variog <- length(variog.model)
 case.var <- 0
@@ -242,12 +243,11 @@ if(l.qtdispl==1 & qt.displ[1]==0){
 
 # here we return the output
 if(variog.model=="whittlematern" | variog.model=="gencauchy"){
-   output <- list(model=variog.model,nugget=param.est[1],variance=param.est[2],
-                  range=param.est[3],additional.par=param.est[-seq(1:3)],
+   output <- list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3],additional.par=param.est[-seq(1:3)],
                   sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
 if(variog.model=="exponential" | variog.model=="gauss" | variog.model=="spherical"){
-   output <- list(model=variog.model,nugget=param.est[1],variance=param.est[2],
-                  range=param.est[3],sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
+   output <- 
+list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3],sim.fields=round(sim.out.1,4),pct.fields=round(qt.out.1,4))}
 lims <- c(min(sim.out.1[,,1:n.displ],na.rm=TRUE),max(sim.out.1[,,1:n.displ],na.rm=TRUE))
 
 n.displ.4 <- ceiling(n.displ/4)

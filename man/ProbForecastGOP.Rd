@@ -29,7 +29,9 @@ distance considered in the variogram computation.}
   \item{max.dist.fit}{number giving the maximum distance considered when fitting the variogram.}
   \item{init.val}{numeric vector giving the initial values for the parameters in the variogram model. The number of initial values to be entered depends on the parametric model specified. 
 
-If the variog.model specified is \kbd{exponential}, \kbd{spherical} or \kbd{gauss}, then the parameters required are, in order, the nugget effect, the variance and the range. 
+If the variog.model specified is \kbd{exponential}, \kbd{spherical} or 
+\kbd{gauss}, then the parameters required are, in order, the nugget 
+effect, the variance and the range. 
 
 If the variog.model specified is \kbd{gencauchy}, the parameters required 
 are, in order, the nugget effect, the variance, the range, the smoothness 
@@ -39,7 +41,9 @@ If the variog.model specified is \kbd{matern} the parameters required are,
 in order, the nugget effect, the variance, the range, and the smoothness 
 parameter \kbd{a}.
   
- For more details on the valid range for the parameters and for the equation of the variogram models listed above, look below at the section "Details".}
+ For more details on the valid range for the parameters and for the 
+equation 
+of the variogram models listed above, look below at the section "Details".}
  \item{fix.nugget}{logical field indicating whether the nugget should be considered fixed or not. 
 
   If \kbd{TRUE} the nugget effect will be assumed to be constant, and a value for the fixed nugget effect can be also provided. If the value provided is different from the one entered in the \code{init.val} field, then the value of the nugget effect is taken to be the one entered in the \code{init.val} field. 
@@ -100,52 +104,80 @@ gaussian, generalized Cauchy and Whittle-Matern.
 - \kbd{exponential}
 
 The equation of the exponential variogram with parameters the nugget 
-effect, \eqn{\rho}, the variance, \eqn{\sigma^{2}}, and the range, \eqn{r}, is given by:
+effect, \eqn{\rho}, the variance, \eqn{\sigma^{2}}, and the range, 
+\eqn{r}, is given by:
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (1-exp(- \frac{d}{r}))}
  
-where \eqn{d} is the distance between the two locations and \eqn{\gamma(d)} is the value of the exponential variogram at distance \eqn{d}. The nugget effect, \eqn{\rho}, is a non-negative number, while the variance, \eqn{\sigma^2}, and the range, \eqn{r}, are positive numbers.
+where \eqn{d} is the distance between the two locations and 
+\eqn{\gamma(d)} is the value of the exponential variogram at distance 
+\eqn{d}. The nugget effect, \eqn{\rho}, is a non-negative number, while 
+the variance, \eqn{\sigma^2}, and the range, \eqn{r}, are positive 
+numbers.
 
 
 - \kbd{spherical}
 
-The equation of the spherical variogram with parameters the nugget effect, \eqn{\rho}, the variance, \eqn{\sigma^2}, and the range, \eqn{r}, is given by:
+The equation of the spherical variogram with parameters the nugget effect, 
+\eqn{\rho}, the variance, \eqn{\sigma^2}, and the range, \eqn{r}, is given 
+by:
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (\frac{3}{2} 
 \cdot\frac{d}{r}-\frac{1}{2} \cdot \frac{d^3}{r^3})}
 
-where \eqn{d} is the distance between the two locations and \eqn{\gamma(d)} is the value of the spherical variogram at distance \eqn{d}. The nugget effect, \eqn{\rho}, is a non-negative number, while the variance, \eqn{\sigma^2}, and the range, \eqn{r}, are positive numbers.
+where \eqn{d} is the distance between the two locations and 
+\eqn{\gamma(d)} is the value of the spherical variogram at distance 
+\eqn{d}. The nugget effect, \eqn{\rho}, is a non-negative number, while 
+the variance, \eqn{\sigma^2}, and the range, \eqn{r}, are positive 
+numbers.
 
 
 - \kbd{gauss}
 
-The equation of the gaussian variogram with parameters the nugget effect, \eqn{\rho}, the variance, \eqn{\sigma^2}, and the range, \eqn{r}, is given by:
+The equation of the gaussian variogram with parameters the nugget effect, 
+\eqn{\rho}, the variance, \eqn{\sigma^2}, and the range, \eqn{r}, is given 
+by:
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (1-exp(- \frac{d^2}{r^2} ))}
 
-where \eqn{d} is the distance between the two locations and \eqn{\gamma(d)} is the value of the gaussian variogram at distance \eqn{d}. The nugget effect, \eqn{\rho}, is a non-negative number, while the variance, \eqn{\sigma^2}, and the range, \eqn{r}, are positive numbers.
+where \eqn{d} is the distance between the two locations and 
+\eqn{\gamma(d)} is the value of the gaussian variogram at distance 
+\eqn{d}. The nugget effect, \eqn{\rho}, is a non-negative number, while 
+the variance, \eqn{\sigma^2}, and the range, \eqn{r}, are positive 
+numbers.
   
 
 - \kbd{gencauchy}
 
-The equation of the generalized Cauchy variogram with parameters the nugget effect, \eqn{\rho}, the variance, \eqn{\sigma^2}, the range, \eqn{r}, the smoothness parameter, \eqn{a}, and the long-range parameter, \eqn{b}, is given by:
+The equation of the generalized Cauchy variogram with parameters the 
+nugget effect, \eqn{\rho}, the variance, \eqn{\sigma^2}, the range, 
+\eqn{r}, 
+the smoothness parameter, \eqn{a}, and the long-range parameter, \eqn{b}, is given by:
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot 
 (1-(1+\frac{d^a}{r^a})^{- \frac{b}{a}})}
 
 where \eqn{d} is the distance between the two locations and 
-\eqn{\gamma(d)} is the value of the generalized Cauchy variogram at distance \eqn{d}. The nugget effect, \eqn{\rho} is a non-negative number, the variance, \eqn{\sigma^2} and the range, \eqn{r}, are positive numbers, the smoothness parameter, \eqn{a}, is a number in \eqn{(0,2]}, and the long-range parameter, \eqn{b}, is a positive number.
+\eqn{\gamma(d)} is the value of the generalized Cauchy variogram at 
+distance \eqn{d}. The nugget effect, \eqn{\rho} is a non-negative number, 
+the variance, \eqn{\sigma^2} and the range, \eqn{r}, are positive numbers, 
+the smoothness parameter, \eqn{a}, is a number in \eqn{(0,2]}, and the long-range parameter, \eqn{b}, is a positive number.
 
 
 - \kbd{matern}
 
 The equation of the Whittle-Matern variogram with parameters the nugget 
-effect, \eqn{\rho}, the variance, \eqn{\sigma^2}, the range, \eqn{r}, and the smoothness parameter, \eqn{a}, is given by:
+effect, \eqn{\rho}, the variance, \eqn{\sigma^2}, the range, \eqn{r}, and 
+the smoothness parameter, \eqn{a}, is given by:
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (1-(\frac{2^{1-a}}{\Gamma(a)}\cdot 
 \frac{d^a}{r^a} \cdot K_{a}(\frac{d}{r}))}
 
-where \eqn{d} is the distance between the two locations, \eqn{\gamma(d)} is the value of the Whittle-Matern variogram at distance \eqn{d}, \eqn{\Gamma} is the gamma function and \eqn{K_a} is the Bessel function of the third kind with parameter \eqn{a}. The nugget effect, \eqn{\rho}, is a non-negative number, the variance, \eqn{\sigma^2}, the range, \eqn{r}, and the smoothness parameter, \eqn{a}, are positive numbers.
+where \eqn{d} is the distance between the two locations, \eqn{\gamma(d)} 
+is the value of the Whittle-Matern variogram at distance \eqn{d}, 
+\eqn{\Gamma} is the gamma function and \eqn{K_a} is the Bessel function of 
+the third kind with parameter \eqn{a}. The nugget effect, \eqn{\rho}, is a 
+non-negative number, the variance, \eqn{\sigma^2}, the range, \eqn{r}, and the smoothness parameter, \eqn{a}, are positive numbers.
 
 
 - Defaults-
@@ -189,7 +221,8 @@ The numerical summary include the following:
   \item{model}{name of the parametric model fitted to the empirical variogram. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
   \item{nugget}{Estimate of the nugget effect. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
   \item{variance}{Estimate of the variance. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
-  \item{range}{Estimate of the range. Provided only if \code{out} is equal to \kbd{FIT} or \kbd{SIM}.}
+  \item{range}{Estimate of the range. Provided only if \code{out} is 
+equal to \kbd{FIT} or \kbd{SIM}.}
   \item{additional.par}{Numeric vector with the estimates of the 
 additional parameters required by the parametric variogram model (only if 
 the model specified is either \kbd{whittlematern} or \kbd{gencauchy}). 

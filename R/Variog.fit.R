@@ -46,7 +46,7 @@ if(l.max.dist.fit==1 & is.numeric(max.dist.fit)==TRUE){
   if(max.dist.fit < 0){
     stop("max.dist.fit should be positive number")
   }
-  if(max.dist.fit > max(emp.variog[,1])){
+  if(max.dist.fit > max(emp.variog.mod$bin.midpoints)){
     stop("max.dist.fit should be less or equal than max.dist")
   }
 }
@@ -108,7 +108,9 @@ if(l.nug >2){
 param.est <- round(model.fit(variog.model,emp.variog.mod,max.dist.fit,init.val,init.var,fix.nugget),3)
 if(variog.model=="matern"){variog.model <- "whittlematern"}
 ifelse((variog.model=="whittlematern" | variog.model=="gencauchy"),
-   output <- list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3],additional.par=param.est[-seq(1:3)]),
-   output <- list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3]))
+   output <- 
+list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3],additional.par=param.est[-seq(1:3)]),
+   output <- 
+list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3]))
    return(output)
 }

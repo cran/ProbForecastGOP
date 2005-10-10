@@ -1,5 +1,10 @@
-"plotfields" <-
-function(field,x.lim,y.lim,title){
+"plotfields" <- 
+function(field,x.lim,y.lim,country.outline="US",title){
+
+if(missing(country.outline))
+  country.outline <- "US"
+
+
 # Input check
 dim.f <- dim(field)
 
@@ -50,6 +55,16 @@ if(l.limy==2){
   }
 }
 
+#input check on the country.outline field
+if(is.character(country.outline)==FALSE){
+  stop("country.outline can only be equal to US, world or both")
+}
+
+if(country.outline!="US" & country.outline!="world" & country.outline!="both"){
+  stop("country.outline can only be equal to US, world or both")
+}
+
+# here the function starts
 lims <- c(min(field,na.rm=TRUE),max(field,na.rm=TRUE))
 size=65  
 hor.crd <- seq(x.lim[1],x.lim[2],length = size)  
@@ -77,12 +92,22 @@ if(min(ver.crd) >= 25.2 & max(ver.crd) <= 49.4){
 if(min(ver.crd) <= 49.4 & max(ver.crd) >= 49.4){
   US.map <- 1 + US.map
 }
-if(US.map==2){
+
+if(US.map==2 & country.outline=="US"){
+  US(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
+}
+  
+
+if(US.map==2 & country.outline!="US"){
   US(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
   world(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)     
 }  
    
-if(US.map < 2){
+if(US.map < 2 & country.outline=="world"){
   world(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
 }
+if(US.map < 2 & (country.outline=="US" || country.outline=="both")){
+  world(xlim=c(min(hor.crd), max(hor.crd)), ylim =c(min(ver.crd), max(ver.crd)),add=TRUE,col=1,lwd=2)
+  print("The area delimited by the latitude and longitude specified is not contained in the US")
+}  
 }

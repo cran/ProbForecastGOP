@@ -7,8 +7,7 @@ geostatistical model.
 }
 
 \usage{
-Field.sim(obs, forecast, coord1.grid, coord2.grid, forecast.grid, 
-variog.model="exponential", param.est, n.sim=99, n.displ=4, 
+Field.sim(obs, forecast, coord1.grid, coord2.grid, forecast.grid,variog.model="exponential", param.est, n.sim=99, n.displ=4, 
 qt.displ=c(10,50,90)) } 
 
 \arguments{
@@ -20,7 +19,10 @@ qt.displ=c(10,50,90)) }
   \item{variog.model}{character string with the name of the variogram model to be used for the simulations. Implemented models are \kbd{exponential}, \kbd{spherical}, \kbd{gauss}, \kbd{matern}, and \kbd{gencauchy}.}
   \item{param.est}{numeric vector containing values for the parameters to use in the parametric variogram model. 
 
-If the variog.model specified is \kbd{exponential}, \kbd{spherical} or \kbd{gauss}, then the parameters required are, in order, the nugget effect (a non-negative number), the variance and the range (both positive numbers). 
+If the variog.model specified is \kbd{exponential}, \kbd{spherical} or 
+\kbd{gauss}, then the parameters required are, in order, the nugget effect 
+(a non-negative number), the variance and the range (both positive 
+numbers). 
 
 If the variog.model specified is \kbd{gencauchy}, the parameters required 
 are, in order, the nugget effect (a non-negative number), the variance, 
@@ -57,14 +59,16 @@ where \eqn{d} is the distance, \eqn{\rho} is the nugget effect,
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (\frac{3}{2}\cdot\frac{d}{r}-\frac{1}{2} \cdot \frac{d^3}{r^3})}
 
-where \eqn{d} is the distance, \eqn{\rho} is the nugget effect, \eqn{\sigma^2} is the variance, and \eqn{r} is the range.
+where \eqn{d} is the distance, \eqn{\rho} is the nugget effect, 
+\eqn{\sigma^2} is the variance, and \eqn{r} is the range.
 
 
 - \kbd{gauss}
 
 \deqn{\gamma(d) = \rho+\sigma^{2} \cdot (1-exp(- \frac{d^2}{r^2} ))}
 
-where \eqn{d} is the distance, \eqn{\rho} is the nugget effect, \eqn{\sigma^{2}} is the variance, and \eqn{r} is the range.
+where \eqn{d} is the distance, \eqn{\rho} is the nugget effect, 
+\eqn{\sigma^{2}} is the variance, and \eqn{r} is the range.
 
 
 - \kbd{gencauchy}
@@ -100,7 +104,7 @@ numerical output is a list with the following components:
 \item{model}{Character string with the name of the variogram model used.}
 \item{nugget}{Value of the nugget effect.}
 \item{variance}{Value of the variance.}
-\item{range}{Value of the range.}
+\item{range}{Value of the rang.}
 \item{additional.par}{Value(s) of the additional parameters required and 
 used in the variogram model. This is returned only if the variogram model 
 used is \kbd{matern} or \kbd{gencauchy}}
@@ -121,7 +125,7 @@ Gneiting, T., Schlather, M. (2004). Stochastic models that separate the
 fractal dimension and the Hurst effect. \emph{SIAM Review} \bold{46}, 
 269--282.
 
-Schlater, M. (2001). Simulation and Analysis of Random Fields. 
+Schlather, M. (2001). Simulation and Analysis of Random Fields. 
 \emph{R News} \bold{1(2)}, 18--20.
 
 Nychka, D. (2004). \emph{The fields package.} Available at: 
@@ -170,12 +174,6 @@ coord2.grid=coord2.grid,forecast.grid=forecast.grid,variog.model="exponential",
 param.est=c(param.est$nugget,param.est$variance,param.est$range),n.sim=4,
 n.displ=4,qt.displ=c(10,50,90))
 
-
-## A different example
-simul <- 
-Field.sim(obs=obs,forecast=forecast,coord1.grid=coord1.grid,
-coord2.grid=coord2.grid,forecast.grid=forecast.grid,variog.model="gencauchy",
-param.est=c(0,1,300,0.5,1.5),n.sim=4,n.displ=1,qt.displ=c(5,10,90,95))
 
 \dontshow{
 ## The function is currently defined as
