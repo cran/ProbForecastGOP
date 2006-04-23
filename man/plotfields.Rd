@@ -7,6 +7,7 @@ Plot weather fields.}
 \usage{
 plotfields(field, x.lim, y.lim, country.outline="US", title)
 }
+
 \arguments{
   \item{field}{numeric square matrix containing the values of the weather field on a grid.}
   \item{x.lim}{numeric vector giving the smallest and the largest longitude to be displayed.}
@@ -20,7 +21,7 @@ and largest latitude and longitude specified in \code{x.lim} and
 \code{y.lim} is added to the plot. If \code{country.outline} is set equal 
 to \code{both}, medium resolution of both the US and of the bodies of land 
 and water enclosed between the specified latitude and longitude are added to 
-the plot. Default value is "US"}
+the plot. Default value is "US".}
   \item{title}{character string with the title for the plot.}
 }
 
@@ -33,7 +34,7 @@ The function returns a graphical display of the weather field on a region delimi
 
 \seealso{The package \pkg{fields} for display of spatial data, and \code{\link[fields]{US}} and \code{\link[fields]{world}} for a map of the US and the world.}
 
-\reference{
+\references{
 Gel, Y., Raftery, A. E., Gneiting, T. (2004). Calibrated 
 probabilistic mesoscale weather field forecasting: The Geostatistical 
 Output Perturbation (GOP) method (with discussion). \emph{Journal of the 
