@@ -69,7 +69,7 @@ Rejoinder. \emph{Journal of the American Statistical Association},
 Cressie, N. A. C. (1993). \emph{Statistics for Spatial Data} (revised ed.). Wiley: New York.
 }
 
-\author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
+\author{Berrocal, V. J. (\email{veroberrocal@gmail.com}), Raftery, A. E., Gneiting, T., Gel, Y.}
 
 \note{The function might require some time to return an output.}
 

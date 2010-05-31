@@ -56,7 +56,7 @@ Gel, Y., Raftery, A. E., Gneiting, T. (2004). Calibrated probabilistic mesoscale
 
 Cressie, N. A. C. (1993). \emph{Statistics for Spatial Data} (revised ed.). Wiley: New York.}
 
-\author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
+\author{Berrocal, V. J. \email{veroberrocal@gmail.com}, Gel, Y., Raftery, A. E., Gneiting, T.}
 \note{Depending on the data, the function might require substantial computing time.}
 
 \seealso{\code{\link{avg.variog.dir}} for directional empirical variogram of a random variable averaged over time, \code{\link{Emp.variog}} and \code{\link{EmpDir.variog}} 

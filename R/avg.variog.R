@@ -1,4 +1,4 @@
-"avg.variog" <-
+avg.variog <-
 function(day,coord1,coord2,id,variable,cut.points=NULL,max.dist=NULL,nbins=300){
 # default values  
 if(missing(cut.points))
@@ -224,3 +224,4 @@ for(i in 1:l.day){
    B <- list(mar.var=round(marginal.var,3),bin.midpoints=fin.x.vec,number.pairs=fin.n.h,empir.variog=fin.avg.variog)
    return(B)
 }
+

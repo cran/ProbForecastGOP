@@ -1,4 +1,4 @@
-"Field.sim" <-
+Field.sim <-
 function(obs,forecast,coord1.grid,coord2.grid,forecast.grid,variog.model="exponential",param.est,n.sim=99,n.displ=4,qt.displ=c(10,50,90)){
 ## Input check
 # set to default values
@@ -327,3 +327,4 @@ if(length(qt.out.1)!=0){
 }
 return(output)
 }
+

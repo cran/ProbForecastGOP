@@ -1,4 +1,4 @@
-"Variog.fit" <-
+Variog.fit <-
 function(emp.variog,variog.model="exponential",max.dist.fit=NULL,init.val=NULL,fix.nugget=FALSE){
 # INPUT CHECK
 ### Here there should be the check on whether emp.variog is an object output of the function emp.variog
@@ -114,3 +114,4 @@ list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.es
 list(model=variog.model,nugget=param.est[1],variance=param.est[2],range=param.est[3]))
    return(output)
 }
+

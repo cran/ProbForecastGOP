@@ -251,10 +251,10 @@ Stein, M. L. (1999). \emph{Interpolation of Spatial Data - Some Theory for Krigi
 Schlather, M. (2001). Simulation and analysis of Random Fields. \emph{R 
 News 1(2)}, 18--20.
 
-Nychka, D. (2004). \emph{The fields package}. Available at: http:lib.stat.cmu.edu/R/CRAN/doc/package/fields.pdf.}
+Nychka, D. (2004). \emph{The fields package}. Available at: http:lib.stat.cmu.edu/R/CRAN/doc/package/fields.pdf.
 }
 
-\author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.} 
+\author{Berrocal, V. J. \email{veroberrocal@gmail.com}, Raftery, A. E., Gneiting, T., Gel, Y.} 
 
 \note{Computation of the empirical variogram might require substantial 
 computing time. Hence, it is advisable to run the function once with 

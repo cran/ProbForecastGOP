@@ -61,7 +61,7 @@ Statistical Association}, \bold{Vol. 99 (467)}, 575--583.
 Cressie, N. A. C. (1993). \emph{Statistics for Spatial Data} (revised ed.). Wiley: New York.
 }
 
-\author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
+\author{Berrocal, V. J. (\email{veroberrocal@gmail.com}), Raftery, A. E., Gneiting, T., Gel, Y.}
 
 \note{Depending on the data, the function might require substantial computing time. As a consequence, if the interest is in producing 
 probabilistic weather forecasts and generating ensemble members, it is advised to save the output in a file and then use the 

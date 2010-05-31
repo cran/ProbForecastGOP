@@ -133,7 +133,7 @@ http:lib.stat.cmu.edu/R/CRAN/doc/package/fields.pdf.
 
 Stein, M. L. (1999). \emph{Interpolation of Spatial Data - Some Theory for Kriging}. Springer-Verlag: New York.}
 
-\author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
+\author{Berrocal, V. J. (\email{veroberrocal@gmail.com}), Raftery, A. E., Gneiting, T., Gel, Y.}
 
 \note{This function depends on the following packages: \pkg{RandomFields} 
 and \pkg{fields}.  }

@@ -42,6 +42,7 @@ Statistical Association}, \bold{Vol. 99 (467),} 575--583.
 
 Grimit, E. P., Mass, C. F. (2002). Initial results of a mesoscale 
 short-range ensemble forecasting system over the Pacific Northwest. 
-\emph{Weather and Forecasting} \bold{17}, 192--205.}
-} 
+\emph{Weather and Forecasting} \bold{17}, 192--205.
+}
+ 
 \keyword{datasets}

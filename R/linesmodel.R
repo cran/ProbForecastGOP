@@ -1,4 +1,4 @@
-"linesmodel" <-
+linesmodel <-
 function(distance,variog.model="exponential",param){
 # INPUT CHECK
 if(missing(distance)){
@@ -101,3 +101,4 @@ if(variog.model=="gencauchy"){
  fitted.values <- (param[1]+param[2]*(1-(1+((distance^2)/param[3])^param[4])^(-param[5]/param[4])))}
 return(fitted.values)
 }
+

@@ -1,4 +1,4 @@
-"ProbForecastGOP" <-
+ProbForecastGOP <-
 function(day,obs,forecast,id,coord1,coord2,cut.points=NULL,max.dist=NULL,nbins=300,variog.model="exponential",max.dist.fit=NULL,
 init.val=NULL,fix.nugget=FALSE,coord1.grid,coord2.grid,forecast.grid,n.sim=99,out="SIM",n.displ=4,qt.displ=c(10,50,90)){
 

@@ -14,7 +14,7 @@ Ensemble, using a 12-km grid resolution.
 \emph{gridded forecast} a numeric vector with 10098 forecasted temperature.
 }
 
-\source{http://isis.apl.washington.edu/extractor-test/MM5DataExtractor.jsp}
+\source{http://metoc.apl.washington.edu/uwme/}
 
 \references{
 Gel, Y., Raftery, A. E., Gneiting, T. (2004). Calibrated 
@@ -24,7 +24,7 @@ Statistical Association}, \bold{Vol. 99 (467)}, 575--583.
 
 Grimit, E. P., Mass, C. F. (2002). Initial results of a short-range 
 ensemble forecasting system over the Pacific Northwest. 
-\emph{Weather and Forecasting} \bold{17}, 192--205.}
-} 
+\emph{Weather and Forecasting} \bold{17}, 192--205.
+}
 
 \keyword{datasets}

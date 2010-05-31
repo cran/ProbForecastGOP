@@ -147,11 +147,11 @@ if(par.model=="gencauchy"){
 }
 if(par.model=="exponential"){
    if(fix.nugget[1]=="TRUE" | fix.nugget[1]==TRUE){
-      f<- exp.variog.fn
+      f<- expvariog.fn
       init.value <- c(var.init.val,r.init.val)
       var.par <- optim(init.value,variog=variog,d=d,w=w,fn=f,gr=NULL,method="L-BFGS-B",lower=c(0,0),upper=c(Inf,Inf))$par}
    if(fix.nugget[1]=="FALSE" | fix.nugget[1]==FALSE){
-      f<- exp.variog
+      f<- expvariog
       init.value <- c(nugget.init.val,var.init.val,r.init.val)
       var.par <- optim(init.value,variog=variog,d=d,w=w,fn=f,gr=NULL,method="L-BFGS-B",lower=c(0,0,0),upper=c(Inf,Inf,Inf))$par}
    if(fix.nugget[1]=="TRUE" | fix.nugget[1]==TRUE){

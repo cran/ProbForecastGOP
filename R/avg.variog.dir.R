@@ -1,4 +1,4 @@
-"avg.variog.dir" <-
+avg.variog.dir <-
 function(day,coord1,coord2,id,variable,tol.angle1=45,tol.angle2=135,cut.points=NULL,max.dist=NULL,nbins=300,type){
 # default values
 if(missing(cut.points))
@@ -271,3 +271,4 @@ for(i in 1:l.day){
    B <- list(bin.midpoints=fin.x.vec,number.pairs=fin.n.h,dir.variog=fin.avg.variog)
    return(B)
 }
+

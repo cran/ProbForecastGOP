@@ -1,4 +1,4 @@
-"EmpDir.variog" <-
+EmpDir.variog <-
 function(day,obs,forecast,id,coord1,coord2,tol.angle1=45,tol.angle2=135,cut.points=NULL,max.dist=NULL,nbins=300,type){
 # default values
 if(missing(cut.points))
@@ -283,6 +283,4 @@ calc.dist.dir(coord1.day,coord2.day,id.day,tol.angle.rad1,tol.angle.rad2,type)
    B <- list(bin.midpoints=fin.x.vec,number.pairs=fin.n.h,dir.variog=fin.avg.variog)
    return(B)
 }
-
-
 

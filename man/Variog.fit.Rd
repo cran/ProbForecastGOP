@@ -164,7 +164,7 @@ fractal dimension and the Hurst effect. \emph{SIAM Review} \bold{46},
 
 Stein, M. L. (1999). \emph{Interpolation of Spatial Data - Some Theory for Kriging}. Springer-Verlag: New York.}
 
-\author{Gel, Y., Raftery, A. E., Gneiting, T., Berrocal, V. J. \email{veronica@stat.washington.edu}.}
+\author{Berrocal, V. J. (\email{veroberrocal@gmail.com}), Raftery, A. E., Gneiting, T., Gel, Y.}
 
 \seealso{\code{\link{Emp.variog}} for computation of the empirical 
 variogram of forecast errors, and \code{\link{avg.variog}} for computation 
